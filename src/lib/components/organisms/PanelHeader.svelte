@@ -4,6 +4,7 @@
 	import type { Role } from '$lib/domain/staff';
 
 	import Bell from '@lucide/svelte/icons/bell';
+	import BookOpen from '@lucide/svelte/icons/book-open';
 	import BellOff from '@lucide/svelte/icons/bell-off';
 	import ChefHat from '@lucide/svelte/icons/chef-hat';
 	import ExternalLink from '@lucide/svelte/icons/external-link';
@@ -37,7 +38,8 @@
 	const loads: KitchenLoad[] = ['calm', 'busy', 'saturated'];
 	const views = [
 		{ href: '/dashboard', label: 'Tablero', icon: LayoutGrid },
-		{ href: '/kitchen', label: 'Cocina', icon: ChefHat }
+		{ href: '/kitchen', label: 'Cocina', icon: ChefHat },
+		{ href: '/dashboard/menu', label: 'Carta', icon: BookOpen }
 	];
 </script>
 

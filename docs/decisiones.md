@@ -215,3 +215,13 @@ La tipografía queda en variables (`app.css`): `--font-body`, `--font-title`,
 `--title-weight` y `--title-tracking`. Todo título usa la utilidad `title`;
 los tamaños son la escala de Tailwind (`--text-*`). Cambiar la letra o el
 peso de los títulos es tocar una variable.
+
+## 2026-10-04 — Editar la carta desde el panel
+
+`/dashboard/menu` edita la carta con la API de administración: cada cambio
+republica el menú de todas las sedes, así lo que se guarda es lo que el
+cliente ve en la siguiente carga. Editar es del dueño y el gerente; caja y
+cocina ven la misma pantalla pero solo agotan y devuelven productos u
+opciones. Editar un grupo conserva los ids de sus opciones para no romper
+carritos abiertos. Reordenar se hace con flechas (subir/bajar): arrastrar
+llega si hace falta.

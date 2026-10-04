@@ -67,3 +67,13 @@ export function safeRedirectTarget(value: string | null, fallback = '/dashboard'
 
 	return value;
 }
+
+/** La marca con la que trabaja el panel (la primera del restaurante, por ahora). */
+export function panelBrandId(event: Pick<RequestEvent, 'locals'>, ctx: PanelContext): string {
+	const membership = event.locals.session?.memberships.find((m) => m.tenantId === ctx.tenantId);
+	const brandId = membership?.brands[0]?.id;
+
+	if (!brandId) error(404, 'Este restaurante todavía no tiene una marca.');
+
+	return brandId;
+}

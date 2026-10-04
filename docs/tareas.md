@@ -102,7 +102,7 @@ Documento: [carta-web.md](carta-web.md).
 - [x] [web] Detalle del pedido: llamar, WhatsApp, Google Maps / Waze, historial, cancelar con motivo
 - [x] [web] Vista de cocina: por empezar / preparando, notas destacadas
 - [x] [api+web] Pausar pedidos y marcar la carga de la cocina desde el panel
-- [ ] [web] Marcar agotado desde la cocina (necesita el panel de menú de la fase 4)
+- [x] [web] Marcar agotado desde la cocina (en `/dashboard/menu`: la cocina ve la carta y solo puede agotar)
 - [ ] [api] Redis + BullMQ: avisar por WhatsApp al dueño si un pedido lleva 3 minutos sin aceptar
 - [ ] [api] Modo hora pico: calcular `kitchenLoad` solo, según la cola de pedidos en cocina
 - [ ] [web] Vista del domiciliario (fase 6); hoy usa el tablero
@@ -112,11 +112,14 @@ Documento: [carta-web.md](carta-web.md).
 
 ## Fase 4 — Panel del restaurante
 
-- [ ] [web] Menú: categorías, productos, fotos, grupos de modificadores, agotados
-- [ ] [api] Subida de fotos a S3/R2
+- [x] [api] Administrar la carta: categorías, productos y grupos de opciones (crear, editar, borrar, reordenar), con republicación del menú en todas las sedes
+- [x] [web] `/dashboard/menu`: productos por categoría y grupos de opciones, editores laterales, agotados de un toque, ocultar categorías
+- [ ] [web] Nombre interno de los grupos para el panel (hoy hay dos "Adiciones" que no se distinguen)
+- [ ] [api] Subida de fotos a S3/R2, achicadas por la API
+- [ ] [web] Subir y cambiar la foto de un producto
 - [ ] [api] Carga del menú desde una foto de la carta (IA) como borrador editable
-- [ ] [web] Sucursales, horarios y zonas (dibujar el polígono)
-- [ ] [web] Plantillas: 3 diseños, colores, logo, tipografía, banner
+- [ ] [web] Sucursales, horarios, ubicación y anillos de cobertura
+- [ ] [web] Plantillas: colores, logo, portada
 - [ ] [web] Equipo: invitar y asignar roles
 - [ ] [web] QR de la carta y de cada mesa para imprimir
 
