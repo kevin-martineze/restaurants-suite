@@ -48,7 +48,7 @@ export function panelContext(
 	const session = event.locals.session;
 
 	if (!session) {
-		redirect(303, `/entrar?volver=${encodeURIComponent(event.url.pathname)}`);
+		redirect(303, `/login?redirectTo=${encodeURIComponent(event.url.pathname)}`);
 	}
 
 	return {
@@ -59,8 +59,8 @@ export function panelContext(
 	};
 }
 
-/** Solo rutas internas: un `volver` que apunte a otro sitio se ignora. */
-export function safeRedirectTarget(value: string | null, fallback = '/panel'): string {
+/** Solo rutas internas: un `redirectTo` que apunte a otro sitio se ignora. */
+export function safeRedirectTarget(value: string | null, fallback = '/dashboard'): string {
 	if (!value || !value.startsWith('/') || value.startsWith('//') || value.includes('\\')) {
 		return fallback;
 	}

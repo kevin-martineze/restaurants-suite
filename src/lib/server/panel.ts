@@ -15,7 +15,7 @@ export function panelData<T>(result: ApiResult<T>, cookies: Cookies, pathname: s
 
 	if (result.status === 401 || result.status === 403) {
 		clearSession(cookies);
-		redirect(303, `/entrar?volver=${encodeURIComponent(pathname)}`);
+		redirect(303, `/login?redirectTo=${encodeURIComponent(pathname)}`);
 	}
 
 	error(result.status >= 400 && result.status < 500 ? result.status : 503, result.message);

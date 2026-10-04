@@ -79,8 +79,8 @@
 			{/each}
 
 			{#if suggestions.length > 0}
-				<section class="flex flex-col gap-3 py-4" aria-labelledby="le-sumas-algo">
-					<h3 id="le-sumas-algo" class="font-display text-lg font-bold">¿Le sumas algo?</h3>
+				<section class="flex flex-col gap-3 py-4" aria-labelledby="add-more">
+					<h3 id="add-more" class="font-display text-lg font-bold">¿Le sumas algo?</h3>
 					<div class="-mx-4 flex snap-x scroll-px-4 gap-3 overflow-x-auto px-4 pb-1 scrollbar-none">
 						{#each suggestions as suggestion (suggestion.id)}
 							<SuggestionCard item={suggestion} inCart={inCart(suggestion.id)} onAdd={onQuickAdd} />

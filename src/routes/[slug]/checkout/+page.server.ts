@@ -133,7 +133,7 @@ export const actions: Actions = {
 
 		redirect(
 			303,
-			`/${encodeURIComponent(ctx.slug)}/pedido/${result.data.number}?t=${encodeURIComponent(result.data.trackingToken)}&nuevo=1`
+			`/${encodeURIComponent(ctx.slug)}/orders/${result.data.number}?token=${encodeURIComponent(result.data.trackingToken)}&new=1`
 		);
 	}
 };

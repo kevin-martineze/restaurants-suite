@@ -17,7 +17,7 @@ import { clampQty, lineKey } from '$lib/domain/cart';
 const STORAGE_VERSION = 'v1';
 
 function storageKey(slug: string): string {
-	return `carta:${slug}:cart:${STORAGE_VERSION}`;
+	return `menu:${slug}:cart:${STORAGE_VERSION}`;
 }
 
 function readStorage(slug: string): CartLine[] {

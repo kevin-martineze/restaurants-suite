@@ -15,7 +15,7 @@ import { serverEnv } from '$lib/server/env';
  * descifrado falla y la sesión simplemente no existe.
  */
 
-export const SESSION_COOKIE = 'restaurante_sesion';
+export const SESSION_COOKIE = 'staff_session';
 
 const sessionSchema = z.object({
 	accessToken: z.string(),

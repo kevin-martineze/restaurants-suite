@@ -193,3 +193,13 @@ en memoria en la API: con varias instancias se cambia a Redis pub/sub.
 `/entrar`, `/salir`, `/panel` (tablero de caja) y `/cocina`. La cocina entra
 directo a su vista. Los botones que el rol no puede usar no se muestran, pero
 la regla la decide la API.
+
+## 2026-10-04 — Rutas e identificadores en inglés
+
+Las URLs y los identificadores técnicos van en inglés, igual que el código:
+`/login`, `/logout`, `/dashboard`, `/dashboard/events`, `/kitchen`,
+`/{slug}/checkout`, `/{slug}/orders/{n}`, `?redirectTo=`, `?token=`, la cookie
+`staff_session` y las claves `menu:{slug}:…` del navegador. Reemplaza a las
+rutas en español de las entradas anteriores (`/entrar`, `/panel`, `/cocina`,
+`/{slug}/pedido`…). Los textos que ven el cliente y el equipo siguen en
+español.

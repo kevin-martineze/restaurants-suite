@@ -26,8 +26,8 @@
 	);
 </script>
 
-<section class="flex flex-col gap-4" aria-labelledby="resumen">
-	<h2 id="resumen" class="font-display text-2xl font-extrabold tracking-tight">Tu pedido</h2>
+<section class="flex flex-col gap-4" aria-labelledby="summary">
+	<h2 id="summary" class="font-display text-2xl font-extrabold tracking-tight">Tu pedido</h2>
 
 	<ul class="flex flex-col gap-3">
 		{#each lines as line (line.key)}

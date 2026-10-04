@@ -9,7 +9,7 @@ import { browser } from '$app/environment';
  */
 
 function key(slug: string): string {
-	return `carta:${slug}:checkout:v1`;
+	return `menu:${slug}:checkout:v1`;
 }
 
 function isSaved(value: unknown): value is SavedCheckout {

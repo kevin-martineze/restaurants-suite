@@ -60,7 +60,7 @@
 
 			const url = new URL(page.url);
 
-			url.searchParams.delete('nuevo');
+			url.searchParams.delete('new');
 			replaceState(url, {});
 		});
 	});

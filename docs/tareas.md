@@ -8,10 +8,12 @@ Las reglas del ciclo están en [roadmap.md](roadmap.md): UI con fixtures →
 validar con gente real → API → conectar. El precio siempre lo calcula el
 servidor.
 
-Convención de URLs del cliente: la carta vive en `/{slug}` (por ejemplo
-`/asados-el-mono`). Los subdominios por restaurante quedan para después. Las
-rutas del equipo (`/panel`, `/cocina`, `/domicilios`, `/plataforma`, `/entrar`)
-son palabras reservadas que ningún restaurante puede usar como slug.
+Convención de URLs (en inglés, como el código): la carta vive en `/{slug}`
+(por ejemplo `/asados-el-mono`), su checkout en `/{slug}/checkout` y el
+seguimiento en `/{slug}/orders/{n}?token=…`. Las rutas del equipo (`/login`,
+`/logout`, `/dashboard`, `/kitchen`, `/rider`, `/platform`…) son palabras
+reservadas que ningún restaurante puede usar como slug (`RESERVED_SLUGS` en la
+API). Los subdominios por restaurante quedan para después.
 
 ---
 

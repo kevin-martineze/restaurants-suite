@@ -36,8 +36,8 @@
 	const paused = $derived(branch.status === 'paused');
 	const loads: KitchenLoad[] = ['calm', 'busy', 'saturated'];
 	const views = [
-		{ href: '/panel', label: 'Tablero', icon: LayoutGrid },
-		{ href: '/cocina', label: 'Cocina', icon: ChefHat }
+		{ href: '/dashboard', label: 'Tablero', icon: LayoutGrid },
+		{ href: '/kitchen', label: 'Cocina', icon: ChefHat }
 	];
 </script>
 
@@ -75,7 +75,7 @@
 			{#if canManage}
 				<form
 					method="POST"
-					action="/panel?/branch"
+					action="/dashboard?/branch"
 					use:enhance
 					class="flex shrink-0 items-center gap-1 rounded-full bg-secondary p-1"
 				>
@@ -102,7 +102,7 @@
 					{/each}
 				</form>
 
-				<form method="POST" action="/panel?/branch" use:enhance class="shrink-0">
+				<form method="POST" action="/dashboard?/branch" use:enhance class="shrink-0">
 					<input type="hidden" name="status" value={paused ? 'open' : 'paused'} />
 					<button
 						type="submit"
@@ -153,7 +153,7 @@
 				</a>
 			{/if}
 
-			<form method="POST" action="/salir" class="shrink-0">
+			<form method="POST" action="/logout" class="shrink-0">
 				<button
 					type="submit"
 					class="flex size-10 items-center justify-center rounded-full hover:bg-secondary"

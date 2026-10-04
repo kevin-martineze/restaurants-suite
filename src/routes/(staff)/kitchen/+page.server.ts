@@ -15,4 +15,4 @@ export const load: PageServerLoad = async (event) => {
 };
 
 // Mover un pedido es la misma acción que en el tablero.
-export { actions } from '../panel/+page.server';
+export { actions } from '../dashboard/+page.server';

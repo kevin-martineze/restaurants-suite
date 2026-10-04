@@ -38,7 +38,7 @@
 	const newCount = $derived(columns[0]?.orders.length ?? 0);
 
 	// En el celular se ve una columna a la vez; arranca en la que tiene trabajo.
-	let activeColumn = $state('nuevos');
+	let activeColumn = $state('new');
 
 	let detailId = $state<string | null>(null);
 	let detailOpen = $state(false);
@@ -91,7 +91,7 @@
 				<span
 					class={cn(
 						'tabular flex size-6 items-center justify-center rounded-full text-xs',
-						column.id === 'nuevos' && column.orders.length > 0
+						column.id === 'new' && column.orders.length > 0
 							? 'bg-primary text-primary-foreground'
 							: 'bg-secondary text-foreground'
 					)}
@@ -109,10 +109,10 @@
 					'flex min-w-0 flex-col gap-3',
 					!desktop.current && activeColumn !== column.id && 'hidden'
 				)}
-				aria-labelledby={`columna-${column.id}`}
+				aria-labelledby={`column-${column.id}`}
 			>
 				<h2
-					id={`columna-${column.id}`}
+					id={`column-${column.id}`}
 					class="flex items-center justify-between font-display text-lg font-extrabold max-lg:hidden"
 				>
 					{column.title}
@@ -128,7 +128,7 @@
 						class="flex flex-col items-center gap-2 rounded-2xl border-2 border-dashed border-border p-8 text-center text-sm text-muted-foreground"
 					>
 						<Inbox class="size-6" />
-						{column.id === 'nuevos' ? 'Esperando pedidos…' : 'Nada por aquí'}
+						{column.id === 'new' ? 'Esperando pedidos…' : 'Nada por aquí'}
 					</div>
 				{/each}
 			</section>

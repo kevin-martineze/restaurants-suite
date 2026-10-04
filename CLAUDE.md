@@ -113,9 +113,17 @@ lee el documento de su rebanada.
 
 ---
 
-## 2. Textos de cara al público
+## 2. Idioma
 
-Todo en español de Colombia, tuteando y sin tecnicismos. Los precios se muestran
+**Código, rutas e identificadores en inglés:** nombres de archivos y carpetas,
+URLs (`/login`, `/dashboard`, `/{slug}/checkout`), parámetros (`?redirectTo=`,
+`?token=`), cookies, claves de `localStorage` e ids del HTML. Una ruta nueva
+del equipo en la raíz se agrega también a `RESERVED_SLUGS` de la API.
+
+**Comentarios y documentación en español.**
+
+**Textos de cara al público:** todo en español de Colombia, tuteando y sin
+tecnicismos. Los precios se muestran
 con `formatMoney` (`$18.000`, sin decimales; ver `$lib/utils/money.ts`). Los
 estados internos se guardan en inglés (`received`, `preparing`, `dispatched`) y
 se traducen al pintarlos con un mapa de etiquetas en `$lib/domain/`.

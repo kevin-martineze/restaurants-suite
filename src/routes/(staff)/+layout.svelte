@@ -31,7 +31,7 @@
 	// Avisos en vivo: un pedido nuevo suena y recarga el tablero; uno que
 	// cambió solo recarga. EventSource se reconecta solo si se cae la red.
 	$effect(() => {
-		const source = new EventSource('/panel/eventos');
+		const source = new EventSource('/dashboard/events');
 		const chime = () => {
 			if (soundOn) playChime();
 		};

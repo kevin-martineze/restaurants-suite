@@ -71,10 +71,10 @@ export const KITCHEN_LOAD_LABEL: Record<KitchenLoad, string> = {
 
 /** Las columnas del tablero y qué estados caen en cada una. */
 export const BOARD_COLUMNS: { id: string; title: string; statuses: OrderStatus[] }[] = [
-	{ id: 'nuevos', title: 'Nuevos', statuses: ['received'] },
-	{ id: 'cocina', title: 'En cocina', statuses: ['accepted', 'preparing'] },
-	{ id: 'listos', title: 'Listos', statuses: ['ready'] },
-	{ id: 'camino', title: 'En camino', statuses: ['dispatched', 'failed_delivery'] }
+	{ id: 'new', title: 'Nuevos', statuses: ['received'] },
+	{ id: 'kitchen', title: 'En cocina', statuses: ['accepted', 'preparing'] },
+	{ id: 'ready', title: 'Listos', statuses: ['ready'] },
+	{ id: 'on-the-way', title: 'En camino', statuses: ['dispatched', 'failed_delivery'] }
 ];
 
 /** Un pedido que lleva más que esto sin aceptar está esperando de más. */

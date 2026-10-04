@@ -123,9 +123,9 @@
 				</label>
 
 				{#if suggestions.length > 0}
-					<section class="flex flex-col gap-3" aria-labelledby="combina-con">
+					<section class="flex flex-col gap-3" aria-labelledby="pairs-with">
 						<div class="flex items-baseline justify-between">
-							<h3 id="combina-con" class="font-display text-lg font-bold">Combina con…</h3>
+							<h3 id="pairs-with" class="font-display text-lg font-bold">Combina con…</h3>
 							<span class="text-xs text-muted-foreground">Se agregan con un toque</span>
 						</div>
 						<div

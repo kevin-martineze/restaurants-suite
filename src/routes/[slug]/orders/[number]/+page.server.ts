@@ -8,7 +8,7 @@ import { publicContext } from '$lib/server/context';
 export const load: PageServerLoad = async (event) => {
 	const ctx = publicContext(event);
 	const number = Number(event.params.number);
-	const token = event.url.searchParams.get('t') ?? '';
+	const token = event.url.searchParams.get('token') ?? '';
 
 	if (!Number.isInteger(number) || number <= 0 || token === '') {
 		error(404, 'No encontramos ese pedido.');
@@ -22,6 +22,6 @@ export const load: PageServerLoad = async (event) => {
 		order: order.data,
 		theme: menu.ok ? menu.data.restaurant.theme : null,
 		// Recién creado desde el checkout: la página vacía el carrito.
-		fresh: event.url.searchParams.get('nuevo') === '1'
+		fresh: event.url.searchParams.get('new') === '1'
 	};
 };

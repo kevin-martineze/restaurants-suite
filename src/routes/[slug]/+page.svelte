@@ -94,7 +94,7 @@
 	function goTo(categoryId: string) {
 		activeId = categoryId;
 		document
-			.getElementById(`categoria-${categoryId}`)
+			.getElementById(`category-${categoryId}`)
 			?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 	}
 
@@ -157,7 +157,7 @@
 					{/if}
 					{#each categories as category (category.id)}
 						<section
-							id={`categoria-${category.id}`}
+							id={`category-${category.id}`}
 							data-section={category.id}
 							class="flex scroll-mt-20 flex-col gap-4"
 						>
@@ -181,7 +181,7 @@
 						lines={cart.lines}
 						previewSubtotal={cart.previewSubtotal}
 						status={menu.status}
-						checkoutHref={`/${menu.restaurant.slug}/pedido`}
+						checkoutHref={`/${menu.restaurant.slug}/checkout`}
 						onQty={(key, qty) => cart.setQty(key, qty)}
 						onRemove={(key) => cart.remove(key)}
 						suggestions={orderSuggestions}
@@ -230,7 +230,7 @@
 				lines={cart.lines}
 				previewSubtotal={cart.previewSubtotal}
 				status={menu.status}
-				checkoutHref={`/${menu.restaurant.slug}/pedido`}
+				checkoutHref={`/${menu.restaurant.slug}/checkout`}
 				onQty={(key, qty) => cart.setQty(key, qty)}
 				onRemove={(key) => cart.remove(key)}
 				suggestions={orderSuggestions}

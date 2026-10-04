@@ -8,7 +8,7 @@ import { writeSession } from '$lib/server/session';
 
 /** A dónde va cada rol al entrar: la cocina a su vista, el resto al tablero. */
 function homeFor(role: string): string {
-	return role === 'kitchen' ? '/cocina' : '/panel';
+	return role === 'kitchen' ? '/kitchen' : '/dashboard';
 }
 
 export const load: PageServerLoad = async ({ locals, url }) => {
@@ -17,7 +17,7 @@ export const load: PageServerLoad = async ({ locals, url }) => {
 	if (session) {
 		const role = session.memberships.find((m) => m.tenantId === session.tenantId)?.role ?? '';
 
-		redirect(303, safeRedirectTarget(url.searchParams.get('volver'), homeFor(role)));
+		redirect(303, safeRedirectTarget(url.searchParams.get('redirectTo'), homeFor(role)));
 	}
 
 	return {};
@@ -71,7 +71,7 @@ export const actions: Actions = {
 
 		redirect(
 			303,
-			safeRedirectTarget(event.url.searchParams.get('volver'), homeFor(membership.role))
+			safeRedirectTarget(event.url.searchParams.get('redirectTo'), homeFor(membership.role))
 		);
 	}
 };

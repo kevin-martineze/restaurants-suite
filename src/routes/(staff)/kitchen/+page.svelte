@@ -22,12 +22,12 @@
 
 	const lanes = $derived([
 		{
-			id: 'por-empezar',
+			id: 'to-start',
 			title: 'Por empezar',
 			orders: data.orders.filter((o) => o.status === 'accepted')
 		},
 		{
-			id: 'preparando',
+			id: 'in-progress',
 			title: 'Preparando',
 			orders: data.orders.filter((o) => o.status === 'preparing')
 		}
