@@ -55,14 +55,14 @@ Documento: [carta-web.md](carta-web.md).
 
 ### API del menú
 
-- [ ] [api] Capa de tenancy: repositorio base que siempre filtra por `tenantId`, con prueba de aislamiento
-- [ ] [api] Esquemas: `tenants`, `brands`, `branches`, `categories`, `items`, `modifierGroups`, `branchItems`
-- [ ] [api] `menuSnapshots`: generación del menú publicado por sucursal
-- [ ] [api] `GET /public/:slug/menu`
-- [ ] [api] Función de precio compartida (cotización y pedido) con pruebas
-- [ ] [api] `POST /public/:slug/quote` con errores en español por línea
-- [ ] [api] Script de semilla con el restaurante de los fixtures
-- [ ] [web] Cambiar fixtures por la API sin tocar páginas
+- [x] [api] Capa de tenancy: repositorio base que siempre filtra por `tenantId`, con prueba de aislamiento
+- [x] [api] Esquemas: `tenants`, `brands`, `branches`, `categories`, `items`, `modifierGroups`, `branchItems`
+- [x] [api] `menuSnapshots`: generación del menú publicado por sucursal
+- [x] [api] `GET /public/:slug/menu`
+- [x] [api] Función de precio compartida (cotización y pedido) con pruebas
+- [x] [api] `POST /public/:slug/quote` con errores en español por línea
+- [x] [api] Script de semilla con el restaurante de los fixtures
+- [x] [web] Cambiar fixtures por la API sin tocar páginas
 
 ## Fase 2 — Checkout
 

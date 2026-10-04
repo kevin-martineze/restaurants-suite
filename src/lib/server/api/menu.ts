@@ -1,87 +1,120 @@
-import type { CartRequestLine, Quote, QuotedLine, RejectedLine } from '$lib/domain/cart';
+import type { CartRequestLine, Quote } from '$lib/domain/cart';
 import type { Menu } from '$lib/domain/menu';
 import type { ApiResult } from '$lib/server/api/client';
 import type { PublicContext } from '$lib/server/context';
 
+import { z } from 'zod';
+
 import { lineKey } from '$lib/domain/cart';
-import { findItem } from '$lib/domain/menu';
-import { selectionLabel, selectionProblems, unitPrice } from '$lib/domain/menu-selection';
-import { MENU, SCHEDULE, SLUG } from '$lib/server/fixtures/la-parrilla-de-tono';
-import { openStatus } from '$lib/server/fixtures/schedule';
+import { publicRequest } from '$lib/server/api/request';
 
 /**
- * Carta pública y cotización del carrito.
+ * Carta pública y cotización del carrito (`restaurants-api`, módulo `menu`).
  *
- * Etapa de fixtures: las dos funciones responden con el restaurante de prueba
- * y con la misma firma que tendrán al llamar a la API. Cuando exista el módulo
- * de menú en `restaurants-api`, se cambia el cuerpo de cada una por
- * `publicRequest` + esquema zod, y ninguna página se entera.
+ * Las respuestas se leen con zod y se traducen a `$lib/domain/*`: si un campo
+ * cambia en la API, se ajusta aquí y ninguna página se entera.
  */
 
-function notFound<T>(): ApiResult<T> {
-	return {
-		ok: false,
-		status: 404,
-		code: 'not_found',
-		message: 'Este restaurante no existe.',
-		details: undefined
-	};
+const modifierSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	priceDelta: z.number().int(),
+	available: z.boolean()
+});
+
+const groupSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	min: z.number().int(),
+	max: z.number().int(),
+	modifiers: z.array(modifierSchema)
+});
+
+const itemSchema = z.object({
+	id: z.string(),
+	name: z.string(),
+	description: z.string().nullable(),
+	price: z.number().int(),
+	imageUrl: z.string().nullable(),
+	available: z.boolean(),
+	groups: z.array(groupSchema)
+});
+
+export const menuResponseSchema = z.object({
+	restaurant: z.object({
+		slug: z.string(),
+		name: z.string(),
+		tagline: z.string().nullable(),
+		logoUrl: z.string().nullable(),
+		theme: z.object({ primary: z.string(), primaryForeground: z.string() })
+	}),
+	branch: z.object({
+		id: z.string(),
+		name: z.string(),
+		address: z.string(),
+		etaMinutes: z.number().int(),
+		fulfillment: z.array(z.enum(['delivery', 'pickup', 'dine_in']))
+	}),
+	status: z.object({ open: z.boolean(), label: z.string() }),
+	categories: z.array(
+		z.object({
+			id: z.string(),
+			name: z.string(),
+			items: z.array(itemSchema)
+		})
+	)
+});
+
+/** La API identifica cada línea por su posición en la petición. */
+export const quoteResponseSchema = z.object({
+	lines: z.array(
+		z.object({
+			index: z.number().int(),
+			itemId: z.string(),
+			modifierIds: z.array(z.string()),
+			name: z.string(),
+			modifiersLabel: z.string(),
+			note: z.string(),
+			qty: z.number().int(),
+			unitPrice: z.number().int(),
+			total: z.number().int()
+		})
+	),
+	rejected: z.array(z.object({ index: z.number().int(), name: z.string(), reason: z.string() })),
+	subtotal: z.number().int()
+});
+
+export function getMenu(ctx: PublicContext): Promise<ApiResult<Menu>> {
+	return publicRequest(ctx, '/menu', menuResponseSchema);
 }
 
-// FIXTURE: GET /public/:slug/menu
-export async function getMenu(ctx: PublicContext, now = new Date()): Promise<ApiResult<Menu>> {
-	if (ctx.slug !== SLUG) return notFound();
-
-	return { ok: true, data: { ...MENU, status: openStatus(SCHEDULE, now) } };
-}
-
-// FIXTURE: POST /public/:slug/quote
+/**
+ * Cotiza el carrito. La API responde por posición; aquí cada línea recupera la
+ * clave con la que la conoce el carrito del navegador.
+ */
 export async function quoteCart(
 	ctx: PublicContext,
 	lines: CartRequestLine[]
 ): Promise<ApiResult<Quote>> {
-	if (ctx.slug !== SLUG) return notFound();
+	const result = await publicRequest(ctx, '/quote', quoteResponseSchema, {
+		method: 'POST',
+		body: { lines }
+	});
 
-	const quoted: QuotedLine[] = [];
-	const rejected: RejectedLine[] = [];
+	if (!result.ok) return result;
 
-	for (const line of lines) {
-		const key = lineKey(line.itemId, line.modifierIds, line.note);
-		const item = findItem(MENU, line.itemId);
+	const keyAt = (index: number): string => {
+		const line = lines[index];
 
-		if (!item) {
-			rejected.push({ key, name: 'Producto', reason: 'Este producto ya no está en la carta.' });
-			continue;
-		}
-
-		const [problem] = selectionProblems(item, line.modifierIds);
-
-		if (problem) {
-			rejected.push({ key, name: item.name, reason: problem });
-			continue;
-		}
-
-		const price = unitPrice(item, line.modifierIds);
-
-		quoted.push({
-			key,
-			itemId: item.id,
-			modifierIds: line.modifierIds,
-			name: item.name,
-			modifiersLabel: selectionLabel(item, line.modifierIds),
-			note: line.note,
-			qty: line.qty,
-			unitPrice: price,
-			total: price * line.qty
-		});
-	}
+		return line ? lineKey(line.itemId, line.modifierIds, line.note) : `#${index}`;
+	};
 
 	return {
 		ok: true,
 		data: {
-			lines: quoted,
-			rejected,
-			subtotal: quoted.reduce((sum, line) => sum + line.total, 0)
+			lines: result.data.lines.map(({ index, ...line }) => ({ ...line, key: keyAt(index) })),
+			rejected: result.data.rejected.map(({ index, ...line }) => ({ ...line, key: keyAt(index) })),
+			subtotal: result.data.subtotal
 		}
 	};
 }

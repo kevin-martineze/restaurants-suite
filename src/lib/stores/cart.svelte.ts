@@ -30,7 +30,11 @@ function readStorage(slug: string): CartLine[] {
 
 		if (!Array.isArray(parsed)) return [];
 
-		return parsed.filter(isCartLine);
+		// La clave se recalcula desde el contenido: una guardada por una versión
+		// vieja (o editada a mano) no puede desalinear la línea de su cotización.
+		return parsed
+			.filter(isCartLine)
+			.map((line) => ({ ...line, key: lineKey(line.itemId, line.modifierIds, line.note) }));
 	} catch {
 		// Storage corrupto o bloqueado: se arranca con carrito vacío.
 		return [];

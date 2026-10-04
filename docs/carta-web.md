@@ -1,5 +1,8 @@
 # Rebanada 1: carta web, hoja de opciones y carrito
 
+> **Estado:** construida y conectada a la API (`GET /public/:slug/menu`,
+> `POST /public/:slug/quote`). Falta probarla con 3 a 5 personas reales.
+
 ## Qué es
 
 Una **sola página** por restaurante (y sucursal) con sus categorías, productos y
@@ -90,8 +93,9 @@ El carrito se manda por form action a `?/quote`. El servidor:
 4. Devuelve líneas válidas y líneas rechazadas con su motivo en español
    ("La Doble se agotó", "Elige máximo 2 salsas").
 
-En la etapa de fixtures esto corre en `$lib/server/api/menu.ts`; después, en el
-endpoint de la API con la misma firma.
+La regla vive en la API (`src/modules/menu/domain/pricing.ts`). La API
+responde por posición de la línea; `$lib/server/api/menu.ts` le devuelve a cada
+una la clave del carrito.
 
 ## Dominio (paso 0)
 
