@@ -170,3 +170,26 @@ Dos casillas separadas: la obligatoria para gestionar el pedido (Ley 1581 de
 WhatsApp. La API guarda la fecha y la versión del texto aceptado
 (`2026-10-v1`). El texto legal definitivo lo revisa un abogado antes del
 piloto.
+
+## 2026-10-04 — Acceso del equipo: un turno, sin renovación por ahora
+
+La API firma un JWT de 12 horas al entrar. La carta lo guarda en una cookie
+cifrada con AES-256-GCM (`SESSION_SECRET`): el navegador no puede leerlo ni
+alterarlo. Al vencer, se vuelve a entrar; el token de renovación llega cuando
+haga falta. La membresía se consulta en cada petición: quitar el acceso a
+alguien surte efecto de inmediato.
+
+## 2026-10-04 — Tablero en vivo por SSE
+
+La API emite un aviso por pedido creado o movido; la carta lo reenvía desde
+`/panel/eventos` (el navegador nunca habla con la API) y el tablero se
+recarga con `invalidate`. Un pedido nuevo suena (Web Audio, sin archivos) una
+vez que alguien toca "Activar sonido", que los navegadores exigen. Hay una
+recarga de respaldo cada minuto por si el stream se perdió. Los avisos viajan
+en memoria en la API: con varias instancias se cambia a Redis pub/sub.
+
+## 2026-10-04 — Rutas del equipo
+
+`/entrar`, `/salir`, `/panel` (tablero de caja) y `/cocina`. La cocina entra
+directo a su vista. Los botones que el rol no puede usar no se muestran, pero
+la regla la decide la API.

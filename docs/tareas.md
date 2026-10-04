@@ -90,17 +90,23 @@ Documento: [carta-web.md](carta-web.md).
 
 ## Fase 3 — Equipo: acceso, tablero y cocina
 
-- [ ] [api] Usuarios, sesiones (JWT + refresh) y membresías con rol y sucursales
-- [ ] [web] Entrar / salir, sesión cifrada en cookie, guardas por rol
-- [ ] [api] Máquina de estados del pedido en una sola función, con pruebas de cada transición
-- [ ] [api] `PATCH` de estado con evento (actor, hora, motivo)
-- [ ] [api] Eventos en tiempo real (change streams / Redis pub/sub)
-- [ ] [web] Ruta SSE propia y tablero del cajero con sonido y wake-lock
-- [ ] [web] Vista de cocina: tarjetas por estado, marcar agotado
-- [ ] [api] Redis + BullMQ: alerta de pedido sin aceptar a los 3 minutos
+- [x] [api] Usuarios (argon2id) y membresías con rol y sedes; JWT de un turno (12 h)
+- [ ] [api] Token de renovación (hoy, al vencer el turno se vuelve a entrar)
+- [x] [web] Entrar / salir, sesión cifrada en cookie (AES-256-GCM), guardas por rol
+- [x] [api] Máquina de estados del pedido en una sola función, con pruebas de cada transición
+- [x] [api] Mover el pedido con evento (actor, hora, motivo) y conflicto si dos lo mueven a la vez
+- [x] [api] Avisos en tiempo real por SSE (en memoria; Redis pub/sub cuando haya varias instancias)
+- [x] [web] Ruta SSE propia y tablero de caja con sonido, wake-lock y alerta de 3 min sin aceptar
+- [x] [web] Detalle del pedido: llamar, WhatsApp, Google Maps / Waze, historial, cancelar con motivo
+- [x] [web] Vista de cocina: por empezar / preparando, notas destacadas
+- [x] [api+web] Pausar pedidos y marcar la carga de la cocina desde el panel
+- [ ] [web] Marcar agotado desde la cocina (necesita el panel de menú de la fase 4)
+- [ ] [api] Redis + BullMQ: avisar por WhatsApp al dueño si un pedido lleva 3 minutos sin aceptar
 - [ ] [api] Modo hora pico: calcular `kitchenLoad` solo, según la cola de pedidos en cocina
+- [ ] [web] Vista del domiciliario (fase 6); hoy usa el tablero
 - [ ] [web] Crear pedido manual (teléfono o mostrador)
 - [ ] [web] Impresión de comanda (decidir: Sunmi vs. Bluetooth ESC/POS)
+- [ ] [web] Elegir restaurante y sede cuando una persona trabaja en varios
 
 ## Fase 4 — Panel del restaurante
 

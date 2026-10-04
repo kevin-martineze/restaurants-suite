@@ -68,13 +68,16 @@
 			{/each}
 		</nav>
 
-		<div class="ml-auto flex flex-wrap items-center gap-2">
+		<!-- En el celular, una sola fila que se desliza en vez de cuatro filas apiladas. -->
+		<div
+			class="flex items-center gap-2 overflow-x-auto scrollbar-none max-lg:w-full max-lg:pb-1 lg:ml-auto"
+		>
 			{#if canManage}
 				<form
 					method="POST"
 					action="/panel?/branch"
 					use:enhance
-					class="flex items-center gap-1 rounded-full bg-secondary p-1"
+					class="flex shrink-0 items-center gap-1 rounded-full bg-secondary p-1"
 				>
 					<span class="pl-2 text-xs font-semibold text-muted-foreground">Cocina</span>
 					{#each loads as load (load)}
@@ -99,12 +102,12 @@
 					{/each}
 				</form>
 
-				<form method="POST" action="/panel?/branch" use:enhance>
+				<form method="POST" action="/panel?/branch" use:enhance class="shrink-0">
 					<input type="hidden" name="status" value={paused ? 'open' : 'paused'} />
 					<button
 						type="submit"
 						class={cn(
-							'flex h-10 items-center gap-2 rounded-full px-4 text-sm font-semibold transition-colors',
+							'flex h-10 items-center gap-2 rounded-full px-4 text-sm font-semibold whitespace-nowrap transition-colors',
 							paused
 								? 'bg-caution text-caution-foreground'
 								: 'bg-success/10 text-success hover:bg-success/20'
@@ -124,7 +127,7 @@
 			<button
 				type="button"
 				class={cn(
-					'flex h-10 items-center gap-2 rounded-full px-3 text-sm font-semibold',
+					'flex h-10 shrink-0 items-center gap-2 rounded-full px-3 text-sm font-semibold whitespace-nowrap',
 					soundOn ? 'bg-secondary' : 'animate-pulse bg-caution text-caution-foreground'
 				)}
 				onclick={onToggleSound}
@@ -143,14 +146,14 @@
 					href={`/${menuSlug}`}
 					target="_blank"
 					rel="noopener"
-					class="flex size-10 items-center justify-center rounded-full hover:bg-secondary"
+					class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-secondary"
 					aria-label="Ver la carta"
 				>
 					<ExternalLink class="size-4" />
 				</a>
 			{/if}
 
-			<form method="POST" action="/salir">
+			<form method="POST" action="/salir" class="shrink-0">
 				<button
 					type="submit"
 					class="flex size-10 items-center justify-center rounded-full hover:bg-secondary"

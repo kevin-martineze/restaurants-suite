@@ -19,6 +19,10 @@ La carta necesita la API corriendo con el restaurante de demostración (ver
 `../restaurants-api/README.md`: `pnpm db:seed` y `pnpm start:dev`). Luego:
 http://localhost:5173/la-parrilla-de-tono
 
+El panel del restaurante está en http://localhost:5173/entrar. Cuentas de la
+demostración (contraseña `demo-parrilla-2026`): `caja@laparrilla.test`,
+`cocina@laparrilla.test`, `dueno@laparrilla.test`.
+
 Requiere Node ≥ 20.19 y pnpm 10.
 
 ## Gates
