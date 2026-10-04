@@ -19,6 +19,7 @@ const menu = {
 		name: 'La Parrilla de Toño',
 		tagline: null,
 		logoUrl: null,
+		coverUrl: null,
 		theme: { primary: '#c0392b', primaryForeground: '#ffffff' }
 	},
 	branch: {

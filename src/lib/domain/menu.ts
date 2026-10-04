@@ -67,6 +67,8 @@ export interface Menu {
 		name: string;
 		tagline: string | null;
 		logoUrl: string | null;
+		/** Foto de portada de la carta. */
+		coverUrl: string | null;
 		theme: MenuTheme;
 	};
 	branch: {

@@ -21,10 +21,12 @@
 		open: boolean;
 		/** Variables de la plantilla: la hoja se pinta fuera del árbol de la carta. */
 		themeStyle: string;
+		/** Desde abajo en el celular; desde el costado en pantallas grandes. */
+		direction?: 'bottom' | 'right';
 		onAdd: (line: Omit<CartLine, 'key'>) => void;
 	}
 
-	let { item, open = $bindable(), themeStyle, onAdd }: Props = $props();
+	let { item, open = $bindable(), themeStyle, direction = 'bottom', onAdd }: Props = $props();
 
 	// La hoja se monta de nuevo cada vez que se abre (ver la página), así que
 	// estos valores siempre arrancan en blanco.
@@ -54,20 +56,26 @@
 	}
 </script>
 
-<Drawer.Root bind:open shouldScaleBackground={false}>
-	<Drawer.Content style={themeStyle} class="mx-auto max-w-lg">
+<Drawer.Root bind:open {direction} shouldScaleBackground={false}>
+	<Drawer.Content style={themeStyle} class={direction === 'bottom' ? 'mx-auto max-w-lg' : ''}>
 		<div class="flex min-h-0 flex-1 flex-col overflow-y-auto">
 			{#if item.imageUrl}
-				<img src={item.imageUrl} alt="" class="aspect-video w-full object-cover" />
+				<img
+					src={item.imageUrl}
+					alt=""
+					class={direction === 'bottom'
+						? 'mx-4 mt-2 aspect-video rounded-xl object-cover'
+						: 'aspect-square w-full object-cover'}
+				/>
 			{/if}
 
-			<Drawer.Header class="text-left">
-				<Drawer.Title class="text-xl font-bold">{item.name}</Drawer.Title>
+			<div class="flex flex-col gap-1 p-4 text-left">
+				<Drawer.Title class="text-2xl font-extrabold tracking-tight">{item.name}</Drawer.Title>
 				{#if item.description}
 					<Drawer.Description>{item.description}</Drawer.Description>
 				{/if}
-				<p class="tabular pt-1 text-base font-semibold">{formatMoney(item.price)}</p>
-			</Drawer.Header>
+				<p class="tabular pt-1 text-lg font-bold">{formatMoney(item.price)}</p>
+			</div>
 
 			<div class="flex flex-col gap-6 px-4 pb-4">
 				{#each item.groups as group (group.id)}

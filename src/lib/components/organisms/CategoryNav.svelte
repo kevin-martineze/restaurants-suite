@@ -27,7 +27,7 @@
 <nav
 	bind:this={nav}
 	aria-label="Categorías"
-	class="sticky top-0 z-20 flex gap-2 overflow-x-auto border-b border-border bg-background/95 px-4 py-3 backdrop-blur scrollbar-none"
+	class="sticky top-0 z-20 flex gap-2 overflow-x-auto border-b border-border bg-background/95 px-4 py-3 backdrop-blur scrollbar-none lg:px-0"
 >
 	{#each categories as category (category.id)}
 		<button

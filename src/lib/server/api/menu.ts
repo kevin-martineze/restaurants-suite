@@ -46,6 +46,7 @@ export const menuResponseSchema = z.object({
 		name: z.string(),
 		tagline: z.string().nullable(),
 		logoUrl: z.string().nullable(),
+		coverUrl: z.string().nullable(),
 		theme: z.object({ primary: z.string(), primaryForeground: z.string() })
 	}),
 	branch: z.object({

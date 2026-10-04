@@ -3,13 +3,15 @@
 	import type { Item } from '$lib/domain/menu';
 
 	import { untrack } from 'svelte';
+	import { MediaQuery } from 'svelte/reactivity';
 
+	import * as Drawer from '$lib/components/atoms/drawer';
+	import MenuItemCard from '$lib/components/molecules/MenuItemCard.svelte';
 	import CartBar from '$lib/components/organisms/CartBar.svelte';
-	import CartSheet from '$lib/components/organisms/CartSheet.svelte';
+	import CartPanel from '$lib/components/organisms/CartPanel.svelte';
 	import CategoryNav from '$lib/components/organisms/CategoryNav.svelte';
 	import ItemSheet from '$lib/components/organisms/ItemSheet.svelte';
 	import MenuHeader from '$lib/components/organisms/MenuHeader.svelte';
-	import MenuItemCard from '$lib/components/molecules/MenuItemCard.svelte';
 	import { themeStyle } from '$lib/domain/theme';
 	import { cart } from '$lib/stores/cart.svelte';
 
@@ -22,6 +24,10 @@
 
 	const menu = $derived(data.menu);
 	const style = $derived(themeStyle(menu.restaurant.theme));
+
+	// En pantallas grandes el carrito es una columna fija y las opciones salen
+	// desde el costado; en el celular, todo sale desde abajo.
+	const desktop = new MediaQuery('min-width: 1024px');
 
 	let activeId = $state<string | null>(untrack(() => data.menu.categories[0]?.id ?? null));
 
@@ -82,29 +88,53 @@
 	{/if}
 </svelte:head>
 
-<div {style} class="mx-auto min-h-dvh max-w-lg pb-28">
-	<MenuHeader {menu} />
+<div {style} class="min-h-dvh pb-28 lg:pb-16">
+	<div class="mx-auto max-w-7xl lg:px-8">
+		<MenuHeader {menu} />
 
-	<CategoryNav categories={menu.categories} {activeId} onSelect={goTo} />
+		<div class="mt-6 lg:grid lg:grid-cols-3 lg:gap-10">
+			<div class="min-w-0 lg:col-span-2">
+				<CategoryNav categories={menu.categories} {activeId} onSelect={goTo} />
 
-	<main class="flex flex-col gap-8 px-4 pt-4">
-		{#each menu.categories as category (category.id)}
-			<section
-				id={`categoria-${category.id}`}
-				data-section={category.id}
-				class="flex scroll-mt-16 flex-col gap-3"
-			>
-				<h2 class="text-lg font-bold">{category.name}</h2>
-				{#each category.items as item (item.id)}
-					<MenuItemCard {item} onSelect={openItem} />
-				{/each}
-			</section>
-		{/each}
-	</main>
+				<main class="flex flex-col gap-10 px-4 pt-6 lg:px-0">
+					{#each menu.categories as category (category.id)}
+						<section
+							id={`categoria-${category.id}`}
+							data-section={category.id}
+							class="flex scroll-mt-20 flex-col gap-4"
+						>
+							<h2 class="text-xl font-extrabold tracking-tight sm:text-2xl">{category.name}</h2>
+							<div class="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-5">
+								{#each category.items as item (item.id)}
+									<MenuItemCard {item} onSelect={openItem} />
+								{/each}
+							</div>
+						</section>
+					{/each}
+				</main>
+			</div>
+
+			<aside class="hidden lg:block">
+				<div class="sticky top-0 flex h-dvh flex-col py-6">
+					<CartPanel
+						class="max-h-full rounded-2xl border border-border bg-card shadow-sm"
+						lines={cart.lines}
+						previewSubtotal={cart.previewSubtotal}
+						status={menu.status}
+						{cartPayload}
+						{quote}
+						{quoteError}
+						onQty={(key, qty) => cart.setQty(key, qty)}
+						onRemove={(key) => cart.remove(key)}
+					/>
+				</div>
+			</aside>
+		</div>
+	</div>
 </div>
 
 {#if !cart.isEmpty}
-	<div {style}>
+	<div {style} class="lg:hidden">
 		<CartBar count={cart.count} subtotal={cart.previewSubtotal} onOpen={() => (cart.open = true)} />
 	</div>
 {/if}
@@ -115,20 +145,31 @@
 			item={sheetItem}
 			bind:open={sheetOpen}
 			themeStyle={style}
+			direction={desktop.current ? 'right' : 'bottom'}
 			onAdd={(line) => cart.add(line)}
 		/>
 	{/key}
 {/if}
 
-<CartSheet
-	bind:open={cart.open}
-	themeStyle={style}
-	lines={cart.lines}
-	previewSubtotal={cart.previewSubtotal}
-	status={menu.status}
-	{cartPayload}
-	{quote}
-	{quoteError}
-	onQty={(key, qty) => cart.setQty(key, qty)}
-	onRemove={(key) => cart.remove(key)}
-/>
+{#if !desktop.current}
+	<Drawer.Root bind:open={cart.open} shouldScaleBackground={false}>
+		<Drawer.Content {style} class="mx-auto max-w-lg">
+			<Drawer.Title class="px-4 pt-2 text-xl font-extrabold tracking-tight">Tu pedido</Drawer.Title>
+			<Drawer.Description class="sr-only"
+				>Revisa los productos antes de continuar.</Drawer.Description
+			>
+			<CartPanel
+				class="flex-1"
+				showTitle={false}
+				lines={cart.lines}
+				previewSubtotal={cart.previewSubtotal}
+				status={menu.status}
+				{cartPayload}
+				{quote}
+				{quoteError}
+				onQty={(key, qty) => cart.setQty(key, qty)}
+				onRemove={(key) => cart.remove(key)}
+			/>
+		</Drawer.Content>
+	</Drawer.Root>
+{/if}
