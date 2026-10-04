@@ -1,0 +1,128 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Tokens de la plataforma. Todo color sale de aquí: nunca hex en componentes.
+ *
+ * La marca del producto aún no está definida, así que la paleta es neutra a
+ * propósito. Cuando haya nombre y logo, se cambian estos valores y nada más.
+ * Los colores de cada restaurante (su plantilla) no viven aquí: se inyectan
+ * como variables en la carta y pisan solo `--primary` y compañía.
+ */
+:root {
+	--radius: 0.625rem;
+
+	--background: oklch(1 0 0);
+	--foreground: oklch(0.2 0 0);
+	--card: oklch(1 0 0);
+	--card-foreground: oklch(0.2 0 0);
+	--popover: oklch(1 0 0);
+	--popover-foreground: oklch(0.2 0 0);
+	--primary: oklch(0.2 0 0);
+	--primary-foreground: oklch(1 0 0);
+	--secondary: oklch(0.97 0 0);
+	--secondary-foreground: oklch(0.2 0 0);
+	--muted: oklch(0.97 0 0);
+	--muted-foreground: oklch(0.55 0 0);
+	--accent: oklch(0.95 0 0);
+	--accent-foreground: oklch(0.2 0 0);
+	--destructive: oklch(0.58 0.21 27);
+	--destructive-foreground: oklch(1 0 0);
+	--border: oklch(0.92 0 0);
+	--input: oklch(0.92 0 0);
+	--ring: oklch(0.55 0 0);
+
+	/* Señales de la operación */
+	--success: oklch(0.52 0.11 155);
+	--success-foreground: oklch(1 0 0);
+	/* Lo que pide atención sin ser un error: «pedido sin aceptar», «demorado». */
+	--caution: oklch(0.6 0.13 50);
+	--caution-foreground: oklch(1 0 0);
+	--whatsapp: oklch(0.65 0.16 152);
+	--whatsapp-foreground: oklch(1 0 0);
+
+	--font-body: ui-sans-serif, system-ui, sans-serif;
+}
+
+/* El panel puede usar modo oscuro; la carta del restaurante vive en claro. */
+.dark {
+	--background: oklch(0.17 0.005 56);
+	--foreground: oklch(0.97 0.004 85);
+	--card: oklch(0.21 0.006 56);
+	--card-foreground: oklch(0.97 0.004 85);
+	--popover: oklch(0.21 0.006 56);
+	--popover-foreground: oklch(0.97 0.004 85);
+	--primary: oklch(0.97 0.004 85);
+	--primary-foreground: oklch(0.21 0.006 56);
+	--secondary: oklch(0.27 0.006 56);
+	--secondary-foreground: oklch(0.97 0.004 85);
+	--muted: oklch(0.27 0.006 56);
+	--muted-foreground: oklch(0.71 0.01 56);
+	--accent: oklch(0.32 0.008 56);
+	--accent-foreground: oklch(0.97 0.004 85);
+	--destructive: oklch(0.64 0.21 25);
+	--destructive-foreground: oklch(0.97 0.004 85);
+	--border: oklch(1 0 0 / 12%);
+	--input: oklch(1 0 0 / 16%);
+	--ring: oklch(0.71 0.01 56);
+
+	--success: oklch(0.65 0.13 155);
+	--success-foreground: oklch(0.17 0.005 56);
+	--caution: oklch(0.72 0.13 60);
+	--caution-foreground: oklch(0.17 0.005 56);
+	--whatsapp: oklch(0.7 0.16 152);
+	--whatsapp-foreground: oklch(0.17 0.005 56);
+}
+
+@theme inline {
+	--font-sans: var(--font-body);
+
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-destructive-foreground: var(--destructive-foreground);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+
+	--color-success: var(--success);
+	--color-success-foreground: var(--success-foreground);
+	--color-caution: var(--caution);
+	--color-caution-foreground: var(--caution-foreground);
+	--color-whatsapp: var(--whatsapp);
+	--color-whatsapp-foreground: var(--whatsapp-foreground);
+
+	--radius-sm: calc(var(--radius) - 4px);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+
+	body {
+		@apply bg-background text-foreground antialiased;
+	}
+
+	/* Precios y cantidades: cifras del mismo ancho para que no bailen al cambiar. */
+	.tabular {
+		font-variant-numeric: tabular-nums;
+	}
+}
