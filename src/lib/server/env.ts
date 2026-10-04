@@ -14,7 +14,9 @@ const schema = z.object({
 		.string()
 		.url()
 		.default('http://localhost:3100/v1')
-		.transform((value) => value.replace(/\/+$/, ''))
+		.transform((value) => value.replace(/\/+$/, '')),
+	/** Cifra la cookie de sesión del panel. Cambiarlo cierra todas las sesiones. */
+	SESSION_SECRET: z.string().min(32)
 });
 
 export type ServerEnv = z.infer<typeof schema>;
@@ -25,7 +27,8 @@ export function serverEnv(): ServerEnv {
 	if (cached) return cached;
 
 	const parsed = schema.safeParse({
-		API_URL: privateEnv.API_URL === '' ? undefined : privateEnv.API_URL
+		API_URL: privateEnv.API_URL === '' ? undefined : privateEnv.API_URL,
+		SESSION_SECRET: privateEnv.SESSION_SECRET
 	});
 
 	if (!parsed.success) {

@@ -1,5 +1,5 @@
 import type { ApiResult, RequestOptions, ResponseSchema } from '$lib/server/api/client';
-import type { PublicContext } from '$lib/server/context';
+import type { PanelContext, PublicContext } from '$lib/server/context';
 
 import { apiRequest } from '$lib/server/api/client';
 
@@ -21,4 +21,18 @@ export function publicRequest<T>(
 /** Segmento de URL armado con algo que llegó de un formulario o de la ruta. */
 export function segment(value: string): string {
 	return encodeURIComponent(value);
+}
+
+/** Panel: `/tenants/:tenantId/*`, con el token de la sesión. */
+export function panelRequest<T>(
+	ctx: PanelContext,
+	path: string,
+	schema: ResponseSchema<T>,
+	options: Options = {}
+): Promise<ApiResult<T>> {
+	return apiRequest(`/tenants/${encodeURIComponent(ctx.tenantId)}${path}`, schema, {
+		...options,
+		accessToken: ctx.accessToken,
+		clientIp: ctx.clientIp
+	});
 }

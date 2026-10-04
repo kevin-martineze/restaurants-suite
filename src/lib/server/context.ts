@@ -1,6 +1,6 @@
 import type { RequestEvent } from '@sveltejs/kit';
 
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 
 /** Con qué restaurante y desde dónde habla la carta con la API. */
 export interface PublicContext {
@@ -26,4 +26,44 @@ export function publicContext(
 	if (!slug) error(404, 'Este restaurante no existe.');
 
 	return { slug, clientIp: clientAddress(event) };
+}
+
+/** Con qué sesión, en qué restaurante y en qué sede habla el panel con la API. */
+export interface PanelContext {
+	tenantId: string;
+	branchId: string;
+	accessToken: string;
+	clientIp: string | null;
+}
+
+/**
+ * El contexto del panel, o a la página de entrar si no hay sesión.
+ *
+ * Toda carga y toda form action del panel empieza aquí: las actions no pasan
+ * por el `load` del layout, así que no heredan su verificación.
+ */
+export function panelContext(
+	event: Pick<RequestEvent, 'getClientAddress' | 'locals' | 'url'>
+): PanelContext {
+	const session = event.locals.session;
+
+	if (!session) {
+		redirect(303, `/entrar?volver=${encodeURIComponent(event.url.pathname)}`);
+	}
+
+	return {
+		tenantId: session.tenantId,
+		branchId: session.branchId,
+		accessToken: session.accessToken,
+		clientIp: clientAddress(event)
+	};
+}
+
+/** Solo rutas internas: un `volver` que apunte a otro sitio se ignora. */
+export function safeRedirectTarget(value: string | null, fallback = '/panel'): string {
+	if (!value || !value.startsWith('/') || value.startsWith('//') || value.includes('\\')) {
+		return fallback;
+	}
+
+	return value;
 }
