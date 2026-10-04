@@ -1,0 +1,19 @@
+import type { ApiResult, RequestOptions, ResponseSchema } from '$lib/server/api/client';
+import type { PublicContext } from '$lib/server/context';
+
+import { apiRequest } from '$lib/server/api/client';
+
+type Options = Omit<RequestOptions, 'accessToken' | 'clientIp'>;
+
+/** Carta pública: `/public/:slug/*`, sin sesión y con la IP del cliente. */
+export function publicRequest<T>(
+	ctx: PublicContext,
+	path: string,
+	schema: ResponseSchema<T>,
+	options: Options = {}
+): Promise<ApiResult<T>> {
+	return apiRequest(`/public/${encodeURIComponent(ctx.slug)}${path}`, schema, {
+		...options,
+		clientIp: ctx.clientIp
+	});
+}

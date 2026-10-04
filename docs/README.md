@@ -18,6 +18,7 @@ documento y se anota en [decisiones.md](decisiones.md).
 
 | Documento                                      | Qué responde                                  |
 | ---------------------------------------------- | --------------------------------------------- |
+| [tareas.md](tareas.md)                         | El plan completo con las tareas y su avance   |
 | [stack.md](stack.md)                           | Tecnologías y cuándo entra cada una           |
 | [carta-web.md](carta-web.md)                   | Rebanada 1: carta, hoja de opciones y carrito |
 | [decisiones.md](decisiones.md)                 | Registro de decisiones y su porqué            |
