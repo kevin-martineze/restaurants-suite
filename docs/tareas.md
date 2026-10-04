@@ -115,8 +115,8 @@ Documento: [carta-web.md](carta-web.md).
 - [x] [api] Administrar la carta: categorías, productos y grupos de opciones (crear, editar, borrar, reordenar), con republicación del menú en todas las sedes
 - [x] [web] `/dashboard/menu`: productos por categoría y grupos de opciones, editores laterales, agotados de un toque, ocultar categorías
 - [ ] [web] Nombre interno de los grupos para el panel (hoy hay dos "Adiciones" que no se distinguen)
-- [ ] [api] Subida de fotos a S3/R2, achicadas por la API
-- [ ] [web] Subir y cambiar la foto de un producto
+- [x] [api] Subida de fotos (disco local o S3/R2), achicadas por la API a 800 px WebP
+- [x] [web] Subir, cambiar y quitar la foto de un producto
 - [ ] [api] Carga del menú desde una foto de la carta (IA) como borrador editable
 - [ ] [web] Sucursales, horarios, ubicación y anillos de cobertura
 - [ ] [web] Plantillas: colores, logo, portada

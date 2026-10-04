@@ -31,6 +31,9 @@ export const load: PageServerLoad = async (event) => {
 	};
 };
 
+/** El mismo techo que la API: una foto de celular pesa 3-5 MB. */
+const MAX_PHOTO_BYTES = 12 * 1024 * 1024;
+
 /** Los campos del formulario como objeto; los repetidos (casillas) como lista. */
 function read(formData: FormData, lists: string[] = []): Record<string, unknown> {
 	const data: Record<string, unknown> = {};
@@ -131,6 +134,32 @@ export const actions: Actions = {
 			: await panelMenu.createItem(ctx, brandId, item);
 
 		return result.ok ? { saved: 'item' } : failed(result);
+	},
+
+	/** Sube o cambia la foto de un producto. */
+	image: async (event) => {
+		const { ctx, brandId } = context(event);
+		const formData = await event.request.formData();
+		const itemId = String(formData.get('itemId') ?? '');
+		const image = formData.get('image');
+
+		if (!(image instanceof File) || image.size === 0) return invalid('Elige una foto.');
+
+		if (!image.type.startsWith('image/')) return invalid('El archivo no es una imagen.');
+
+		if (image.size > MAX_PHOTO_BYTES) return invalid('La foto pesa más de 12 MB.');
+
+		const result = await panelMenu.uploadImage(ctx, brandId, itemId, image);
+
+		return result.ok ? { saved: 'image' } : failed(result);
+	},
+
+	removeImage: async (event) => {
+		const { ctx, brandId } = context(event);
+		const itemId = String((await event.request.formData()).get('itemId') ?? '');
+		const result = await panelMenu.removeImage(ctx, brandId, itemId);
+
+		return result.ok ? { saved: 'image' } : failed(result);
 	},
 
 	deleteItem: async (event) => {

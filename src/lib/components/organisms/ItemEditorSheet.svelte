@@ -4,7 +4,9 @@
 
 	import { untrack } from 'svelte';
 
+	import ImagePlus from '@lucide/svelte/icons/image-plus';
 	import Trash from '@lucide/svelte/icons/trash-2';
+	import UtensilsCrossed from '@lucide/svelte/icons/utensils-crossed';
 
 	import { enhance } from '$app/forms';
 
@@ -44,6 +46,8 @@
 	let pairsWith = $state<string[]>(untrack(() => item?.pairsWith ?? []));
 	let confirmDelete = $state(false);
 	let submitting = $state(false);
+	let uploading = $state(false);
+	let photoForm = $state<HTMLFormElement | null>(null);
 
 	// "Combina con…": lo que se agrega con un toque desde acompañantes, bebidas y postres.
 	const suggestable = $derived(
@@ -59,6 +63,16 @@
 		return list.length >= max ? list : [...list, id];
 	}
 
+	// La foto no cierra la hoja: se queda para seguir editando el producto.
+	const trackPhoto: SubmitFunction = () => {
+		uploading = true;
+
+		return async ({ update }) => {
+			await update({ reset: true });
+			uploading = false;
+		};
+	};
+
 	const track: SubmitFunction = () => {
 		submitting = true;
 
@@ -73,6 +87,65 @@
 
 <Drawer.Root bind:open {direction} shouldScaleBackground={false}>
 	<Drawer.Content class={direction === 'right' ? 'sm:max-w-md' : 'mx-auto max-w-lg'}>
+		{#if item}
+			<div class="flex items-center gap-4 border-b border-border p-5">
+				<div class="relative size-24 shrink-0 overflow-hidden rounded-2xl bg-muted">
+					{#if item.imageUrl}
+						<img src={item.imageUrl} alt="" class="size-full object-cover" />
+					{:else}
+						<div class="flex size-full items-center justify-center text-muted-foreground">
+							<UtensilsCrossed class="size-7" />
+						</div>
+					{/if}
+					{#if uploading}
+						<div
+							class="absolute inset-0 flex items-center justify-center bg-foreground/50 text-xs font-semibold text-background"
+						>
+							Subiendo…
+						</div>
+					{/if}
+				</div>
+				<div class="flex flex-col gap-2">
+					<form
+						bind:this={photoForm}
+						method="POST"
+						action="?/image"
+						enctype="multipart/form-data"
+						use:enhance={trackPhoto}
+					>
+						<input type="hidden" name="itemId" value={item.id} />
+						<label
+							class="flex h-10 cursor-pointer items-center gap-2 rounded-lg border border-input px-3 text-sm font-semibold hover:bg-secondary"
+						>
+							<ImagePlus class="size-4" />
+							{item.imageUrl ? 'Cambiar foto' : 'Subir foto'}
+							<input
+								type="file"
+								name="image"
+								accept="image/*"
+								class="sr-only"
+								disabled={uploading}
+								onchange={() => photoForm?.requestSubmit()}
+							/>
+						</label>
+					</form>
+					{#if item.imageUrl}
+						<form method="POST" action="?/removeImage" use:enhance={trackPhoto}>
+							<input type="hidden" name="itemId" value={item.id} />
+							<button
+								type="submit"
+								class="text-sm text-muted-foreground hover:text-destructive"
+								disabled={uploading}
+							>
+								Quitar foto
+							</button>
+						</form>
+					{/if}
+					<span class="text-xs text-muted-foreground">Cuadrada se ve mejor. Hasta 12 MB.</span>
+				</div>
+			</div>
+		{/if}
+
 		<form method="POST" action="?/item" class="flex min-h-0 flex-1 flex-col" use:enhance={track}>
 			{#if item}<input type="hidden" name="itemId" value={item.id} />{/if}
 

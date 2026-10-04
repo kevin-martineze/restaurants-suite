@@ -56,6 +56,16 @@
 	let renaming = $state<string | null>(null);
 	let sheetVersion = 0;
 
+	// El producto abierto se lee de los datos frescos: si se le cambia la foto,
+	// la hoja la muestra sin cerrarse.
+	const sheetItem = $derived(
+		itemSheet?.item
+			? (menu.categories
+					.flatMap((category) => category.items)
+					.find((candidate) => candidate.id === itemSheet?.item?.id) ?? itemSheet.item)
+			: null
+	);
+
 	function editItem(item: AdminItem | null, categoryId: string) {
 		sheetVersion += 1;
 		itemSheet = { item, categoryId, version: sheetVersion };
@@ -400,7 +410,7 @@
 	{#key itemSheet.version}
 		<ItemEditorSheet
 			bind:open={itemOpen}
-			item={itemSheet.item}
+			item={sheetItem}
 			categoryId={itemSheet.categoryId}
 			categories={menu.categories}
 			groups={menu.groups}

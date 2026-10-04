@@ -124,6 +124,20 @@ export const panelMenu = {
 		send(ctx, brandId, `/groups/${segment(groupId)}`, 'PATCH', group),
 	deleteGroup: (ctx: PanelContext, brandId: string, groupId: string) =>
 		send(ctx, brandId, `/groups/${segment(groupId)}`, 'DELETE'),
+	/** La foto se reenvía tal cual llegó: la API la achica y la guarda. */
+	uploadImage: (ctx: PanelContext, brandId: string, itemId: string, image: File) => {
+		const formData = new FormData();
+
+		formData.append('image', image, image.name || 'foto');
+
+		return panelRequest(ctx, path(brandId, `/items/${segment(itemId)}/image`), adminMenuSchema, {
+			method: 'POST',
+			formData
+		});
+	},
+	removeImage: (ctx: PanelContext, brandId: string, itemId: string) =>
+		send(ctx, brandId, `/items/${segment(itemId)}/image`, 'DELETE'),
+
 	setModifierAvailability: (
 		ctx: PanelContext,
 		brandId: string,
