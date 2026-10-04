@@ -70,14 +70,14 @@
 		<div class="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto p-5">
 			<div class="flex items-start justify-between gap-3">
 				<div>
-					<Drawer.Title class="font-display text-3xl font-extrabold">#{order.number}</Drawer.Title>
+					<Drawer.Title class="title text-3xl">#{order.number}</Drawer.Title>
 					<Drawer.Description>
 						{ORDER_STATUS_LABEL[order.status]} · {order.fulfillment === 'delivery'
 							? 'Domicilio'
 							: 'Recoger en el local'}
 					</Drawer.Description>
 				</div>
-				<span class="tabular font-display text-2xl font-extrabold">
+				<span class="tabular title text-2xl">
 					{formatMoney(order.totals.total)}
 				</span>
 			</div>

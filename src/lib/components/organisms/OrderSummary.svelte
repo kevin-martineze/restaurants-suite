@@ -27,7 +27,7 @@
 </script>
 
 <section class="flex flex-col gap-4" aria-labelledby="summary">
-	<h2 id="summary" class="font-display text-2xl font-extrabold tracking-tight">Tu pedido</h2>
+	<h2 id="summary" class="title text-2xl">Tu pedido</h2>
 
 	<ul class="flex flex-col gap-3">
 		{#each lines as line (line.key)}
@@ -79,8 +79,8 @@
 			</div>
 		{/if}
 		<div class="flex items-baseline justify-between pt-1">
-			<dt class="font-display text-lg font-bold">Total</dt>
-			<dd class="tabular font-display text-2xl font-extrabold">
+			<dt class="title text-lg">Total</dt>
+			<dd class="tabular title text-2xl">
 				{formatMoney(preview?.total ?? subtotal)}
 			</dd>
 		</div>

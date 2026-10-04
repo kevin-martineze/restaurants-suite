@@ -39,15 +39,13 @@
 		class="absolute inset-0 bg-linear-to-t from-foreground/85 via-foreground/20 to-transparent"
 	></div>
 
-	<span
-		class="absolute top-3 left-3 rounded-full bg-background/90 px-2.5 py-1 font-display text-sm font-extrabold"
-	>
+	<span class="absolute top-3 left-3 rounded-full bg-background/90 px-2.5 py-1 title text-sm">
 		#{rank}
 	</span>
 
 	<div class="relative mt-auto flex w-full items-end justify-between gap-3 p-4 text-background">
 		<div class="flex min-w-0 flex-col">
-			<span class="truncate font-display text-xl leading-tight font-bold">{item.name}</span>
+			<span class="truncate title text-xl leading-tight">{item.name}</span>
 			<span class="tabular font-semibold text-background/85">
 				{item.available ? formatMoney(item.price) : 'Agotado'}
 			</span>

@@ -91,6 +91,9 @@ lee el documento de su rebanada.
     colores del restaurante entran como variables CSS de su plantilla, no como
     clases arbitrarias.
 25. **`cn()` para clases dinámicas.**
+    25b. **Títulos con la utilidad `title`** (familia, peso e interletrado salen de
+    las variables de `app.css`). Nada de repetir `font-bold tracking-tight` en
+    cada título.
 26. **Iconos: solo `@lucide/svelte`.** Cero emojis en la interfaz. Lucide no
     trae iconos de marca (no existe `instagram`).
 27. **`type="button"` explícito** en todo botón que no sea submit.

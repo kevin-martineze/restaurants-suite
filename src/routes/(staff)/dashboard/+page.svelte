@@ -113,7 +113,7 @@
 			>
 				<h2
 					id={`column-${column.id}`}
-					class="flex items-center justify-between font-display text-lg font-extrabold max-lg:hidden"
+					class="flex items-center justify-between title text-lg max-lg:hidden"
 				>
 					{column.title}
 					<span class="tabular text-sm font-semibold text-muted-foreground">

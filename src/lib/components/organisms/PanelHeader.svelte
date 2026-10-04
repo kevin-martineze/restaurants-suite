@@ -44,7 +44,7 @@
 <header class="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur-xl">
 	<div class="flex flex-wrap items-center gap-x-4 gap-y-2 px-4 py-3 lg:px-6">
 		<div class="flex min-w-0 flex-col">
-			<span class="truncate font-display text-lg leading-tight font-extrabold">{tenantName}</span>
+			<span class="truncate title text-lg leading-tight">{tenantName}</span>
 			<span class="truncate text-xs text-muted-foreground">
 				{branch.name} · {userName} ({ROLE_LABEL[role]})
 			</span>

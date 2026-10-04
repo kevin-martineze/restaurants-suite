@@ -38,7 +38,7 @@
 			>
 				<ChefHat class="size-7" />
 			</span>
-			<h1 class="font-display text-3xl font-extrabold tracking-tight">Panel del restaurante</h1>
+			<h1 class="title text-3xl">Panel del restaurante</h1>
 			<p class="text-muted-foreground">Entra para ver y mover los pedidos.</p>
 		</div>
 

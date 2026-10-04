@@ -48,17 +48,14 @@
 	{#if data.orders.length === 0}
 		<div class="flex flex-col items-center gap-3 py-24 text-center text-muted-foreground">
 			<ChefHat class="size-12" />
-			<p class="font-display text-2xl font-extrabold text-foreground">Cocina al día</p>
+			<p class="title text-2xl text-foreground">Cocina al día</p>
 			<p>Cuando caja acepte un pedido, aparece aquí.</p>
 		</div>
 	{:else}
 		<div class="grid gap-6 lg:grid-cols-2">
 			{#each lanes as lane (lane.id)}
 				<section class="flex flex-col gap-4" aria-labelledby={lane.id}>
-					<h2
-						id={lane.id}
-						class="flex items-center justify-between font-display text-2xl font-extrabold"
-					>
+					<h2 id={lane.id} class="flex items-center justify-between title text-2xl">
 						{lane.title}
 						<span class="tabular text-base text-muted-foreground">{lane.orders.length}</span>
 					</h2>

@@ -53,7 +53,7 @@
 <div class={cn('flex min-h-0 flex-col', className)}>
 	{#if showTitle}
 		<div class="flex items-baseline justify-between px-4 pt-4">
-			<h2 class="font-display text-2xl font-extrabold tracking-tight">Tu pedido</h2>
+			<h2 class="title text-2xl">Tu pedido</h2>
 			{#if count > 0}
 				<span class="text-sm text-muted-foreground">
 					{count}
@@ -80,7 +80,7 @@
 
 			{#if suggestions.length > 0}
 				<section class="flex flex-col gap-3 py-4" aria-labelledby="add-more">
-					<h3 id="add-more" class="font-display text-lg font-bold">¿Le sumas algo?</h3>
+					<h3 id="add-more" class="title text-lg">¿Le sumas algo?</h3>
 					<div class="-mx-4 flex snap-x scroll-px-4 gap-3 overflow-x-auto px-4 pb-1 scrollbar-none">
 						{#each suggestions as suggestion (suggestion.id)}
 							<SuggestionCard item={suggestion} inCart={inCart(suggestion.id)} onAdd={onQuickAdd} />

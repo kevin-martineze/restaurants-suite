@@ -28,7 +28,7 @@
 
 <fieldset class="flex flex-col gap-2">
 	<legend class="mb-2 flex w-full items-baseline justify-between gap-2">
-		<span class="font-display text-lg font-bold">{group.name}</span>
+		<span class="title text-lg">{group.name}</span>
 		<span class={cn('text-xs', missing ? 'font-medium text-caution' : 'text-muted-foreground')}>
 			{groupRuleLabel(group)}
 			{#if group.max > 1}

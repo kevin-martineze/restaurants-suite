@@ -23,7 +23,7 @@
 			<TriangleAlert class="size-7" />
 		{/if}
 	</span>
-	<h1 class="font-display text-3xl font-extrabold tracking-tight">
+	<h1 class="title text-3xl">
 		{notFound ? 'No encontramos esta página' : 'Algo falló de nuestro lado'}
 	</h1>
 	<!-- El mensaje ya viene en español desde el servidor (la API o el load). -->

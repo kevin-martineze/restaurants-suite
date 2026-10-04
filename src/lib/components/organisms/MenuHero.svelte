@@ -54,16 +54,14 @@
 				/>
 			{:else}
 				<div
-					class="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary font-display text-2xl font-extrabold text-primary-foreground shadow-lg ring-2 ring-background/60 sm:size-20 sm:text-3xl"
+					class="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-primary title text-2xl text-primary-foreground shadow-lg ring-2 ring-background/60 sm:size-20 sm:text-3xl"
 					aria-hidden="true"
 				>
 					{initials}
 				</div>
 			{/if}
 			<div class="flex min-w-0 flex-col">
-				<h1
-					class="font-display text-3xl leading-none font-extrabold tracking-tight text-balance sm:text-5xl lg:text-6xl"
-				>
+				<h1 class="title text-3xl leading-none text-balance sm:text-5xl lg:text-6xl">
 					{menu.restaurant.name}
 				</h1>
 				{#if menu.restaurant.tagline}

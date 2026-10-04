@@ -203,3 +203,15 @@ Las URLs y los identificadores técnicos van en inglés, igual que el código:
 rutas en español de las entradas anteriores (`/entrar`, `/panel`, `/cocina`,
 `/{slug}/pedido`…). Los textos que ven el cliente y el equipo siguen en
 español.
+
+## 2026-10-04 — DM Sans en toda la app y tipografía en variables
+
+Elegida por el equipo frente a la combinación anterior (Bricolage Grotesque
+en extra negrita + Inter), que en el tablero se veía ancha y pesada, y frente
+a Inter sola, Bricolage condensada y Geist. Una sola familia para la carta y
+el panel, con eje de tamaño óptico.
+
+La tipografía queda en variables (`app.css`): `--font-body`, `--font-title`,
+`--title-weight` y `--title-tracking`. Todo título usa la utilidad `title`;
+los tamaños son la escala de Tailwind (`--text-*`). Cambiar la letra o el
+peso de los títulos es tocar una variable.

@@ -52,7 +52,7 @@
 			onclick={() => onOpen(order)}
 			aria-label={`Ver el pedido ${order.number}`}
 		>
-			<span class="font-display text-2xl leading-none font-extrabold">#{order.number}</span>
+			<span class="title text-2xl leading-none">#{order.number}</span>
 			<span class="mt-1 text-sm font-medium">{order.customer.name}</span>
 		</button>
 		<div class="flex flex-col items-end gap-1">

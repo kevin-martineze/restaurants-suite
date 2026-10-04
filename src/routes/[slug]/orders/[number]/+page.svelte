@@ -78,7 +78,7 @@
 			>
 				<Check class="size-10" strokeWidth={3} />
 			</span>
-			<h1 class="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
+			<h1 class="title text-3xl sm:text-4xl">
 				¡Pedido recibido, {order.customerName.split(' ')[0]}!
 			</h1>
 			<p class="text-muted-foreground">
@@ -89,7 +89,7 @@
 
 		<section class="flex flex-col gap-4 rounded-3xl bg-background p-5 shadow-sm">
 			<div class="flex items-baseline justify-between">
-				<h2 class="font-display text-xl font-extrabold">{ORDER_STATUS_LABEL[order.status]}</h2>
+				<h2 class="title text-xl">{ORDER_STATUS_LABEL[order.status]}</h2>
 				<span class="text-sm text-muted-foreground">
 					{delivery ? 'Llega' : 'Listo'} en unos {order.etaMinutes} min
 				</span>
@@ -168,7 +168,7 @@
 		</section>
 
 		<section class="flex flex-col gap-3 rounded-3xl bg-background p-5 shadow-sm">
-			<h2 class="font-display text-xl font-extrabold">Lo que pediste</h2>
+			<h2 class="title text-xl">Lo que pediste</h2>
 			<ul class="flex flex-col gap-3">
 				{#each order.items as item, index (index)}
 					<li class="flex items-start justify-between gap-3">
@@ -201,8 +201,8 @@
 					</div>
 				{/if}
 				<div class="flex items-baseline justify-between pt-1">
-					<dt class="font-display text-lg font-bold">Total</dt>
-					<dd class="tabular font-display text-2xl font-extrabold">
+					<dt class="title text-lg">Total</dt>
+					<dd class="tabular title text-2xl">
 						{formatMoney(order.totals.total)}
 					</dd>
 				</div>

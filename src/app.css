@@ -1,15 +1,11 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 /*
- * Dos familias:
- * - Inter: el cuerpo, los precios y las opciones. Se lee bien en pantallas
- *   pequeñas y tiene cifras tabulares.
- * - Bricolage Grotesque: los títulos de la carta. Grotesca con carácter, para
- *   que el nombre del restaurante y las secciones no se vean de plantilla.
- * Se sirven desde el propio sitio: nada de Google Fonts en la carta.
+ * Una sola familia en toda la app: DM Sans, con eje de tamaño óptico (se
+ * afina sola en letra chica y se ve más compacta en títulos). Se sirve desde
+ * el propio sitio: nada de Google Fonts.
  */
-@import '@fontsource-variable/inter';
-@import '@fontsource-variable/bricolage-grotesque';
+@import '@fontsource-variable/dm-sans/opsz.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -53,8 +49,16 @@
 	--whatsapp: oklch(0.65 0.16 152);
 	--whatsapp-foreground: oklch(1 0 0);
 
-	--font-body: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
-	--font-title: 'Bricolage Grotesque Variable', 'Inter Variable', ui-sans-serif, sans-serif;
+	/*
+	 * Tipografía. Todo título usa la utilidad `title`, que lee estas cuatro
+	 * variables: cambiar la letra o el peso de los títulos es tocar aquí.
+	 * Los tamaños son la escala de Tailwind (`--text-sm`, `--text-2xl`…) y se
+	 * ajustan en `@theme` si hace falta.
+	 */
+	--font-body: 'DM Sans Variable', ui-sans-serif, system-ui, sans-serif;
+	--font-title: var(--font-body);
+	--title-weight: 700;
+	--title-tracking: -0.02em;
 }
 
 /* El panel puede usar modo oscuro; la carta del restaurante vive en claro. */
@@ -157,6 +161,13 @@
 	.tabular {
 		font-variant-numeric: tabular-nums;
 	}
+}
+
+/* Títulos: familia, peso e interletrado desde las variables de tipografía. */
+@utility title {
+	font-family: var(--font-title);
+	font-weight: var(--title-weight);
+	letter-spacing: var(--title-tracking);
 }
 
 /* Respeta la barra de gestos del iPhone en lo que va pegado abajo. */

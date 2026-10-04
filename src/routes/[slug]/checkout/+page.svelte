@@ -150,7 +150,7 @@
 				<ArrowLeft class="size-5" />
 			</a>
 			<div class="flex min-w-0 flex-col">
-				<span class="font-display text-lg leading-tight font-extrabold">Finaliza tu pedido</span>
+				<span class="title text-lg leading-tight">Finaliza tu pedido</span>
 				<span class="truncate text-sm text-muted-foreground">{menu.restaurant.name}</span>
 			</div>
 		</div>
@@ -159,7 +159,7 @@
 	{#if hydrated && cart.isEmpty}
 		<main class="mx-auto flex max-w-md flex-col items-center gap-3 px-6 py-24 text-center">
 			<ShoppingBag class="size-12 text-muted-foreground" />
-			<h1 class="font-display text-2xl font-extrabold">Tu pedido está vacío</h1>
+			<h1 class="title text-2xl">Tu pedido está vacío</h1>
 			<p class="text-muted-foreground">Vuelve a la carta y agrega lo que se te antoje.</p>
 			<Button href={`/${slug}`} class="mt-2 h-12 px-6 text-base">Ver la carta</Button>
 		</main>
@@ -206,7 +206,7 @@
 
 			<div class="flex flex-col gap-6 lg:col-span-3">
 				<section class="flex flex-col gap-3 rounded-3xl bg-background p-5 shadow-sm">
-					<h2 class="font-display text-xl font-extrabold">¿Cómo lo quieres?</h2>
+					<h2 class="title text-xl">¿Cómo lo quieres?</h2>
 					<div class="grid gap-3 sm:grid-cols-2">
 						<ChoiceCard
 							name="fulfillment"
@@ -236,7 +236,7 @@
 				{#if delivery}
 					<section class="flex flex-col gap-4 rounded-3xl bg-background p-5 shadow-sm">
 						<div>
-							<h2 class="font-display text-xl font-extrabold">¿Dónde te lo llevamos?</h2>
+							<h2 class="title text-xl">¿Dónde te lo llevamos?</h2>
 							<p class="text-sm text-muted-foreground">
 								El punto del mapa es lo que usa el domiciliario para llegar.
 							</p>
@@ -295,7 +295,7 @@
 				{/if}
 
 				<section class="flex flex-col gap-4 rounded-3xl bg-background p-5 shadow-sm">
-					<h2 class="font-display text-xl font-extrabold">Tus datos</h2>
+					<h2 class="title text-xl">Tus datos</h2>
 					<div class="grid gap-4 sm:grid-cols-2">
 						<label class="flex flex-col gap-1.5">
 							<span class="text-sm font-semibold">Nombre</span>
@@ -348,7 +348,7 @@
 
 				<section class="flex flex-col gap-4 rounded-3xl bg-background p-5 shadow-sm">
 					<div>
-						<h2 class="font-display text-xl font-extrabold">¿Cómo pagas?</h2>
+						<h2 class="title text-xl">¿Cómo pagas?</h2>
 						<p class="text-sm text-muted-foreground">
 							Pagas al {delivery ? 'recibir tu pedido' : 'recogerlo'}.
 						</p>

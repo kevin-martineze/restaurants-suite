@@ -149,7 +149,7 @@
 					{#if query !== '' && categories.length === 0}
 						<div class="flex flex-col items-center gap-2 py-16 text-center text-muted-foreground">
 							<SearchX class="size-10" />
-							<p class="font-display text-xl font-bold text-foreground">
+							<p class="title text-xl text-foreground">
 								No encontramos «{query}»
 							</p>
 							<p>Prueba con otra palabra o revisa la carta completa.</p>
@@ -161,7 +161,7 @@
 							data-section={category.id}
 							class="flex scroll-mt-20 flex-col gap-4"
 						>
-							<h2 class="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
+							<h2 class="title text-2xl sm:text-3xl">
 								{category.name}
 							</h2>
 							<div class="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-5">
@@ -218,9 +218,7 @@
 {#if !desktop.current}
 	<Drawer.Root bind:open={cart.open} shouldScaleBackground={false}>
 		<Drawer.Content {style} class="mx-auto max-w-lg">
-			<Drawer.Title class="px-4 pt-2 font-display text-2xl font-extrabold tracking-tight">
-				Tu pedido
-			</Drawer.Title>
+			<Drawer.Title class="px-4 pt-2 title text-2xl">Tu pedido</Drawer.Title>
 			<Drawer.Description class="sr-only"
 				>Revisa los productos antes de continuar.</Drawer.Description
 			>

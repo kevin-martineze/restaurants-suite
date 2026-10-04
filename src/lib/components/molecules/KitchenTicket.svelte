@@ -33,7 +33,7 @@
 >
 	<header class="flex items-start justify-between gap-2">
 		<div>
-			<span class="font-display text-4xl leading-none font-extrabold">#{order.number}</span>
+			<span class="title text-4xl leading-none">#{order.number}</span>
 			<span class="mt-1 flex items-center gap-1 text-sm text-muted-foreground">
 				{#if order.fulfillment === 'delivery'}
 					<Bike class="size-4" /> Domicilio

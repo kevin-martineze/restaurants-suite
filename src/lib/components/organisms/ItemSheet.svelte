@@ -92,7 +92,7 @@
 						{/each}
 					</div>
 				{/if}
-				<Drawer.Title class="font-display text-3xl leading-tight font-extrabold tracking-tight">
+				<Drawer.Title class="title text-3xl leading-tight">
 					{item.name}
 				</Drawer.Title>
 				{#if item.description}
@@ -125,7 +125,7 @@
 				{#if suggestions.length > 0}
 					<section class="flex flex-col gap-3" aria-labelledby="pairs-with">
 						<div class="flex items-baseline justify-between">
-							<h3 id="pairs-with" class="font-display text-lg font-bold">Combina con…</h3>
+							<h3 id="pairs-with" class="title text-lg">Combina con…</h3>
 							<span class="text-xs text-muted-foreground">Se agregan con un toque</span>
 						</div>
 						<div

@@ -15,10 +15,7 @@
 </script>
 
 <section class="flex flex-col gap-4" aria-labelledby="most-ordered">
-	<h2
-		id="most-ordered"
-		class="flex items-center gap-2 px-4 font-display text-2xl font-extrabold tracking-tight lg:px-0"
-	>
+	<h2 id="most-ordered" class="flex items-center gap-2 px-4 title text-2xl lg:px-0">
 		<TrendingUp class="size-6 text-primary" />
 		Lo más pedido
 	</h2>
