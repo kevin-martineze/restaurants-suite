@@ -126,3 +126,17 @@
 		font-variant-numeric: tabular-nums;
 	}
 }
+
+/* Respeta la barra de gestos del iPhone en lo que va pegado abajo. */
+@utility pb-safe {
+	padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+/* Carriles con scroll horizontal (categorías): se desliza, no se ve la barra. */
+@utility scrollbar-none {
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+}

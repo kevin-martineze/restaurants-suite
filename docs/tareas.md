@@ -41,16 +41,16 @@ Documento: [carta-web.md](carta-web.md).
 - [x] [web] Cliente de la API (`ApiResult`, `apiRequest`) y entorno del servidor
 - [x] [web] `$lib/server/api/menu.ts`: `getMenu(slug)` y `quoteCart(slug, lines)` sobre fixtures (`// FIXTURE:`)
 - [x] [web] Átomos de shadcn necesarios (sheet/drawer, badge, checkbox, radio, textarea, separator)
-- [ ] [web] Ruta `/[slug]`: encabezado del restaurante (logo, abierto/cerrado, tiempo estimado)
-- [ ] [web] Pestañas de categorías fijas que siguen el scroll
-- [ ] [web] Tarjeta de producto (foto, precio, agotado)
-- [ ] [web] Hoja de opciones: grupos, mín./máx., total en vivo, notas, cantidad, "Agregar" con motivo cuando falta algo
-- [ ] [web] Store del carrito en `localStorage` con líneas por clave
-- [ ] [web] Barra fija "Ver carrito" y hoja del carrito (editar cantidades, quitar, subtotal)
-- [ ] [web] Form action `?/quote`: cotización del servidor con líneas rechazadas y su motivo
-- [ ] [web] Restaurante cerrado: carta visible, pedido bloqueado, hora de apertura
-- [ ] [web] Plantilla del restaurante: colores como variables CSS sobre los tokens
-- [ ] [web] Revisión en 360 px y presupuesto de JS de la carta
+- [x] [web] Ruta `/[slug]`: encabezado del restaurante (logo, abierto/cerrado, tiempo estimado)
+- [x] [web] Pestañas de categorías fijas que siguen el scroll
+- [x] [web] Tarjeta de producto (foto, precio, agotado)
+- [x] [web] Hoja de opciones: grupos, mín./máx., total en vivo, notas, cantidad, "Agregar" con motivo cuando falta algo
+- [x] [web] Store del carrito en `localStorage` con líneas por clave
+- [x] [web] Barra fija "Ver carrito" y hoja del carrito (editar cantidades, quitar, subtotal)
+- [x] [web] Form action `?/quote`: cotización del servidor con líneas rechazadas y su motivo
+- [x] [web] Restaurante cerrado: carta visible, pedido bloqueado, hora de apertura
+- [x] [web] Plantilla del restaurante: colores como variables CSS sobre los tokens
+- [x] [web] Revisión en 360 px y presupuesto de JS de la carta (77 KB de JS transferidos)
 - [ ] [negocio] Probar la carta con 3 a 5 personas en un Android de gama media
 
 ### API del menú

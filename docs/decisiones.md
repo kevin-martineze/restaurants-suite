@@ -60,3 +60,24 @@ Con Embedded Signup, cada restaurante conecta su propio número. Un BSP
 
 Una web no envía ubicación con la pantalla bloqueada. La v1 promete eventos con
 hora y ubicación con la app abierta; Capacitor sobre la misma web en la v2.
+
+## 2026-10-03 — La carta vive en `/{slug}`
+
+Por ruta y no por subdominio: es más simple de desplegar y de compartir en
+WhatsApp. Las rutas del equipo (`/panel`, `/cocina`, `/domicilios`,
+`/plataforma`, `/entrar`) quedan reservadas: ningún restaurante puede usarlas
+como slug. Los subdominios quedan para después.
+
+## 2026-10-03 — Opciones de la carta con inputs nativos
+
+La hoja de opciones usa `<input type="radio">` y `checkbox` nativos con
+estilo propio, no las primitivas de bits-ui: pesan menos JS en la carta, que
+es lo que abre el cliente con 4G, y son accesibles de fábrica. Radio solo
+cuando el grupo es obligatorio de una opción; un grupo opcional de una opción
+usa casilla para poder desmarcarla.
+
+## 2026-10-03 — Los colores del restaurante entran como variables CSS
+
+La plantilla pisa `--primary` y `--primary-foreground` con un `style` en la
+carta y en las hojas (que se pintan fuera de su árbol). El color se valida
+(hex u `oklch`) antes de llegar al atributo, para no inyectar CSS.
