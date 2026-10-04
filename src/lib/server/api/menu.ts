@@ -48,7 +48,8 @@ const itemSchema = z.object({
 		.array(z.string())
 		.default([])
 		.transform((tags) => tags.filter(isItemTag)),
-	groups: z.array(groupSchema)
+	groups: z.array(groupSchema),
+	suggestedItemIds: z.array(z.string()).default([])
 });
 
 export const menuResponseSchema = z.object({

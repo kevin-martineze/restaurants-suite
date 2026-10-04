@@ -54,6 +54,7 @@ Documento: [carta-web.md](carta-web.md).
 - [x] [web] Rediseño en galería de fotos, con versión para computador (carrito lateral)
 - [x] [web] Diseño diferenciador: portada inmersiva, "Lo más pedido", etiquetas, cantidad en el carrito sobre cada producto, buscador en la carta
 - [x] [api] Etiquetas de producto (`popular`, `new`, `spicy`, `vegetarian`) y foto de portada de la marca
+- [x] [api+web] "Combina con…" en la hoja del producto y "¿Le sumas algo?" en el carrito (sugerencias por papel de categoría o elegidas a mano)
 - [ ] [negocio] Probar la carta con 3 a 5 personas en un Android de gama media
 
 ### API del menú

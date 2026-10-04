@@ -19,6 +19,7 @@
 	import ItemSheet from '$lib/components/organisms/ItemSheet.svelte';
 	import MenuHero from '$lib/components/organisms/MenuHero.svelte';
 	import { popularItems, searchMenu } from '$lib/domain/menu-search';
+	import { cartSuggestions, quickAddLine, suggestionsForItem } from '$lib/domain/suggestions';
 	import { themeStyle } from '$lib/domain/theme';
 	import { cart } from '$lib/stores/cart.svelte';
 
@@ -49,12 +50,20 @@
 		)
 	);
 
+	const inCartOf = (itemId: string): number => qtyByItem.get(itemId) ?? 0;
+
 	let activeId = $state<string | null>(untrack(() => data.menu.categories[0]?.id ?? null));
 
 	let sheetItem = $state<Item | null>(null);
 	let sheetOpen = $state(false);
 	// Cada apertura monta la hoja de nuevo: elecciones, nota y cantidad en blanco.
 	let sheetVersion = $state(0);
+
+	// "Combina con…" del producto abierto y "¿Le sumas algo?" del pedido.
+	const sheetSuggestions = $derived(
+		sheetItem ? suggestionsForItem(menu.categories, sheetItem) : []
+	);
+	const orderSuggestions = $derived(cartSuggestions(menu.categories, cart.lines));
 
 	const cartPayload = $derived(cart.serialize());
 	// La cotización vale solo para el carrito que se cotizó. Si el cliente
@@ -112,6 +121,10 @@
 		navigator.vibrate?.(15);
 	}
 
+	function quickAdd(item: Item) {
+		addToCart(quickAddLine(item));
+	}
+
 	function openItem(item: Item) {
 		sheetItem = item;
 		sheetVersion += 1;
@@ -133,11 +146,7 @@
 		<div class="mt-8 lg:grid lg:grid-cols-3 lg:gap-10">
 			<div class="min-w-0 lg:col-span-2">
 				{#if popular.length > 0 && query === ''}
-					<FeaturedRail
-						items={popular}
-						inCart={(itemId) => qtyByItem.get(itemId) ?? 0}
-						onSelect={openItem}
-					/>
+					<FeaturedRail items={popular} inCart={inCartOf} onSelect={openItem} />
 				{/if}
 
 				<div class="mt-8">
@@ -165,7 +174,7 @@
 							</h2>
 							<div class="grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-5">
 								{#each category.items as item (item.id)}
-									<MenuItemCard {item} inCart={qtyByItem.get(item.id) ?? 0} onSelect={openItem} />
+									<MenuItemCard {item} inCart={inCartOf(item.id)} onSelect={openItem} />
 								{/each}
 							</div>
 						</section>
@@ -185,6 +194,9 @@
 						{quoteError}
 						onQty={(key, qty) => cart.setQty(key, qty)}
 						onRemove={(key) => cart.remove(key)}
+						suggestions={orderSuggestions}
+						inCart={inCartOf}
+						onQuickAdd={quickAdd}
 					/>
 				</div>
 			</aside>
@@ -205,6 +217,9 @@
 			bind:open={sheetOpen}
 			themeStyle={style}
 			direction={desktop.current ? 'right' : 'bottom'}
+			suggestions={sheetSuggestions}
+			inCart={inCartOf}
+			onQuickAdd={quickAdd}
 			onAdd={addToCart}
 		/>
 	{/key}
@@ -230,6 +245,9 @@
 				{quoteError}
 				onQty={(key, qty) => cart.setQty(key, qty)}
 				onRemove={(key) => cart.remove(key)}
+				suggestions={orderSuggestions}
+				inCart={inCartOf}
+				onQuickAdd={quickAdd}
 			/>
 		</Drawer.Content>
 	</Drawer.Root>

@@ -105,3 +105,18 @@ Para no parecerse a lo que ya existe:
 
 Peso de la carta: 81 KB de JS, 88 KB de tipografías, 10 KB de CSS. Las fotos
 de prueba se piden a 500 px; las reales las achicará la API (fase 4).
+
+## 2026-10-04 — Venta cruzada: "Combina con…" y "¿Le sumas algo?"
+
+Para subir el ticket promedio sin descuentos:
+
+- Cada categoría tiene un papel: principal, acompañante, bebida o postre.
+- La API calcula al publicar el menú hasta 3 sugerencias por producto: las que
+  el restaurante eligió a mano (`pairsWith`) o, si no eligió, acompañantes y
+  bebidas intercalados, con los más pedidos primero. Solo a platos principales.
+- Solo se sugiere lo que se agrega con un toque (disponible y sin opciones
+  obligatorias): sugerir algo que abre otra hoja corta la compra.
+- La carta las muestra en la hoja del producto y en el carrito; en el carrito
+  se priorizan las que más productos del pedido sugieren.
+
+Pendiente para cuando haya pedidos: medir cuántas sugerencias se aceptan.

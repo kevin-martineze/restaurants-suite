@@ -7,6 +7,7 @@
 	import { Textarea } from '$lib/components/atoms/textarea';
 	import ItemTagBadge from '$lib/components/molecules/ItemTagBadge.svelte';
 	import ModifierGroupField from '$lib/components/molecules/ModifierGroupField.svelte';
+	import SuggestionCard from '$lib/components/molecules/SuggestionCard.svelte';
 	import QuantityStepper from '$lib/components/molecules/QuantityStepper.svelte';
 	import { MAX_NOTE_LENGTH, MAX_QTY_PER_LINE, normalizeNote } from '$lib/domain/cart';
 	import {
@@ -24,10 +25,23 @@
 		themeStyle: string;
 		/** Desde abajo en el celular; desde el costado en pantallas grandes. */
 		direction?: 'bottom' | 'right';
+		/** "Combina con…": se agregan con un toque, aparte del producto de la hoja. */
+		suggestions?: Item[];
+		inCart?: (itemId: string) => number;
+		onQuickAdd?: (item: Item) => void;
 		onAdd: (line: Omit<CartLine, 'key'>) => void;
 	}
 
-	let { item, open = $bindable(), themeStyle, direction = 'bottom', onAdd }: Props = $props();
+	let {
+		item,
+		open = $bindable(),
+		themeStyle,
+		direction = 'bottom',
+		suggestions = [],
+		inCart = () => 0,
+		onQuickAdd = () => {},
+		onAdd
+	}: Props = $props();
 
 	// La hoja se monta de nuevo cada vez que se abre (ver la página), así que
 	// estos valores siempre arrancan en blanco.
@@ -107,6 +121,26 @@
 						placeholder="Ej.: sin cebolla, la salsa aparte"
 					/>
 				</label>
+
+				{#if suggestions.length > 0}
+					<section class="flex flex-col gap-3" aria-labelledby="combina-con">
+						<div class="flex items-baseline justify-between">
+							<h3 id="combina-con" class="font-display text-lg font-bold">Combina con…</h3>
+							<span class="text-xs text-muted-foreground">Se agregan con un toque</span>
+						</div>
+						<div
+							class="-mx-4 flex snap-x scroll-px-4 gap-3 overflow-x-auto px-4 pb-1 scrollbar-none"
+						>
+							{#each suggestions as suggestion (suggestion.id)}
+								<SuggestionCard
+									item={suggestion}
+									inCart={inCart(suggestion.id)}
+									onAdd={onQuickAdd}
+								/>
+							{/each}
+						</div>
+					</section>
+				{/if}
 			</div>
 		</div>
 

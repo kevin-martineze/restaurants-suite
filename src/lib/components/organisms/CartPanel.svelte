@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { CartLine, Quote } from '$lib/domain/cart';
-	import type { OpenStatus } from '$lib/domain/menu';
+	import type { Item, OpenStatus } from '$lib/domain/menu';
 
 	import CircleCheck from '@lucide/svelte/icons/circle-check';
 	import ShoppingBag from '@lucide/svelte/icons/shopping-bag';
@@ -10,6 +10,7 @@
 	import { Button } from '$lib/components/atoms/button';
 	import { Separator } from '$lib/components/atoms/separator';
 	import CartLineRow from '$lib/components/molecules/CartLineRow.svelte';
+	import SuggestionCard from '$lib/components/molecules/SuggestionCard.svelte';
 	import { cn } from '$lib/utils';
 	import { formatMoney } from '$lib/utils/money';
 
@@ -25,6 +26,10 @@
 		quoteError: string | null;
 		onQty: (key: string, qty: number) => void;
 		onRemove: (key: string) => void;
+		/** "¿Le sumas algo?": lo que combina con lo que ya lleva el pedido. */
+		suggestions?: Item[];
+		inCart?: (itemId: string) => number;
+		onQuickAdd?: (item: Item) => void;
 		/**
 		 * El título lo pone quien envuelve el panel cuando es un drawer (necesita
 		 * su propio componente de título para accesibilidad).
@@ -42,6 +47,9 @@
 		quoteError,
 		onQty,
 		onRemove,
+		suggestions = [],
+		inCart = () => 0,
+		onQuickAdd = () => {},
 		showTitle = true,
 		class: className
 	}: Props = $props();
@@ -81,6 +89,17 @@
 				{/if}
 				<CartLineRow {line} problem={problems.get(line.key) ?? null} {onQty} {onRemove} />
 			{/each}
+
+			{#if suggestions.length > 0}
+				<section class="flex flex-col gap-3 py-4" aria-labelledby="le-sumas-algo">
+					<h3 id="le-sumas-algo" class="font-display text-lg font-bold">¿Le sumas algo?</h3>
+					<div class="-mx-4 flex snap-x scroll-px-4 gap-3 overflow-x-auto px-4 pb-1 scrollbar-none">
+						{#each suggestions as suggestion (suggestion.id)}
+							<SuggestionCard item={suggestion} inCart={inCart(suggestion.id)} onAdd={onQuickAdd} />
+						{/each}
+					</div>
+				</section>
+			{/if}
 		{/if}
 	</div>
 

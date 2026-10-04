@@ -41,7 +41,8 @@ const hamburguesa: Item = {
 	imageUrl: null,
 	available: true,
 	tags: [],
-	groups: [termino, adiciones]
+	groups: [termino, adiciones],
+	suggestedItemIds: []
 };
 
 describe('groupRuleLabel', () => {

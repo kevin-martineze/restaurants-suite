@@ -50,6 +50,8 @@ export interface Item {
 	available: boolean;
 	tags: ItemTag[];
 	groups: ModifierGroup[];
+	/** "Combina con…": ids de productos que se agregan con un toque. */
+	suggestedItemIds: string[];
 }
 
 export interface Category {

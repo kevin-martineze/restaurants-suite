@@ -14,6 +14,7 @@ function item(id: string, name: string, extra: Partial<Item> = {}): Item {
 		available: true,
 		tags: [],
 		groups: [],
+		suggestedItemIds: [],
 		...extra
 	};
 }
