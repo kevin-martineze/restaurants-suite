@@ -55,6 +55,8 @@ Documento: [carta-web.md](carta-web.md).
 - [x] [web] Diseño diferenciador: portada inmersiva, "Lo más pedido", etiquetas, cantidad en el carrito sobre cada producto, buscador en la carta
 - [x] [api] Etiquetas de producto (`popular`, `new`, `spicy`, `vegetarian`) y foto de portada de la marca
 - [x] [api+web] "Combina con…" en la hoja del producto y "¿Le sumas algo?" en el carrito (sugerencias por papel de categoría o elegidas a mano)
+- [x] [api+web] Estado de la cocina (al día / mucha demanda / a tope) que corrige el tiempo estimado; hoy manual, automático en la fase 3
+- [x] [web] Página de error con diseño propio
 - [ ] [negocio] Probar la carta con 3 a 5 personas en un Android de gama media
 
 ### API del menú
@@ -91,6 +93,7 @@ Documento: [carta-web.md](carta-web.md).
 - [ ] [web] Ruta SSE propia y tablero del cajero con sonido y wake-lock
 - [ ] [web] Vista de cocina: tarjetas por estado, marcar agotado
 - [ ] [api] Redis + BullMQ: alerta de pedido sin aceptar a los 3 minutos
+- [ ] [api] Modo hora pico: calcular `kitchenLoad` solo, según la cola de pedidos en cocina
 - [ ] [web] Crear pedido manual (teléfono o mostrador)
 - [ ] [web] Impresión de comanda (decidir: Sunmi vs. Bluetooth ESC/POS)
 

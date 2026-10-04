@@ -69,6 +69,9 @@ export const menuResponseSchema = z.object({
 		fulfillment: z.array(z.enum(['delivery', 'pickup', 'dine_in']))
 	}),
 	status: z.object({ open: z.boolean(), label: z.string() }),
+	kitchen: z
+		.object({ load: z.enum(['calm', 'busy', 'saturated']), label: z.string() })
+		.default({ load: 'calm', label: 'Cocina al día' }),
 	categories: z.array(
 		z.object({
 			id: z.string(),

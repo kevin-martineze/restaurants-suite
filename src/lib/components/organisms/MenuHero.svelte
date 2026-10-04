@@ -2,6 +2,7 @@
 	import type { Menu } from '$lib/domain/menu';
 
 	import Bike from '@lucide/svelte/icons/bike';
+	import ChefHat from '@lucide/svelte/icons/chef-hat';
 	import Clock from '@lucide/svelte/icons/clock';
 	import MapPin from '@lucide/svelte/icons/map-pin';
 
@@ -89,10 +90,25 @@
 				</span>
 				{menu.status.label}
 			</span>
-			<span class={glass}>
-				<Clock class="size-4" />
-				~{menu.branch.etaMinutes} min
-			</span>
+			{#if menu.status.open}
+				<span
+					class={cn(
+						glass,
+						menu.kitchen.load === 'busy' && 'bg-caution text-caution-foreground ring-0',
+						menu.kitchen.load === 'saturated' && 'bg-destructive text-destructive-foreground ring-0'
+					)}
+					title="El tiempo ya cuenta cuántos pedidos tiene la cocina ahora."
+				>
+					<ChefHat class="size-4" />
+					{menu.kitchen.label} · ~{menu.branch.etaMinutes} min
+				</span>
+			{:else}
+				<!-- Cerrado: el estado de la cocina no dice nada; el tiempo sí orienta. -->
+				<span class={glass}>
+					<Clock class="size-4" />
+					~{menu.branch.etaMinutes} min
+				</span>
+			{/if}
 			<span class={glass}>
 				<Bike class="size-4" />
 				{menu.branch.fulfillment.map((type) => FULFILLMENT_LABEL[type]).join(' · ')}

@@ -120,3 +120,15 @@ Para subir el ticket promedio sin descuentos:
   se priorizan las que más productos del pedido sugieren.
 
 Pendiente para cuando haya pedidos: medir cuántas sugerencias se aceptan.
+
+## 2026-10-04 — Estado de la cocina en la carta
+
+Cada sede tiene `kitchenLoad`: al día, mucha demanda o a tope. La API suma
+0, 15 o 30 minutos al tiempo estimado y la carta muestra "Mucha demanda ·
+~50 min". El tiempo se corrige en la API y no en el frontend, para que el que
+promete la carta sea el mismo que se guarde en el pedido. Con el local
+cerrado no se muestra el estado, solo el tiempo.
+
+Por qué: menos cancelaciones y menos "¿ya viene?" si el cliente sabe antes de
+pedir que la cocina está llena. Hoy el nivel lo fija el restaurante; en la
+fase 3 se calculará solo con la cola de pedidos (modo hora pico).

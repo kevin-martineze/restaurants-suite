@@ -30,6 +30,7 @@ const menu = {
 		fulfillment: ['delivery', 'pickup']
 	},
 	status: { open: true, label: 'Abierto · cierra a las 11:00 p. m.' },
+	kitchen: { load: 'busy', label: 'Mucha demanda' },
 	categories: []
 };
 

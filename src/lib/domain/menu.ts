@@ -74,6 +74,14 @@ export interface OpenStatus {
 	label: string;
 }
 
+export type KitchenLoad = 'calm' | 'busy' | 'saturated';
+
+/** Qué tan cargada está la cocina ahora; el tiempo estimado ya viene corregido. */
+export interface KitchenStatus {
+	load: KitchenLoad;
+	label: string;
+}
+
 export interface Menu {
 	restaurant: {
 		slug: string;
@@ -93,6 +101,7 @@ export interface Menu {
 		fulfillment: FulfillmentType[];
 	};
 	status: OpenStatus;
+	kitchen: KitchenStatus;
 	categories: Category[];
 }
 
