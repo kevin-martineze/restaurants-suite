@@ -30,6 +30,16 @@ export interface ModifierGroup {
 	modifiers: Modifier[];
 }
 
+/** Etiquetas con las que el restaurante destaca un producto. */
+export type ItemTag = 'popular' | 'new' | 'spicy' | 'vegetarian';
+
+export const ITEM_TAG_LABEL: Record<ItemTag, string> = {
+	popular: 'Más pedido',
+	new: 'Nuevo',
+	spicy: 'Picante',
+	vegetarian: 'Vegetariano'
+};
+
 export interface Item {
 	id: string;
 	name: string;
@@ -38,6 +48,7 @@ export interface Item {
 	price: number;
 	imageUrl: string | null;
 	available: boolean;
+	tags: ItemTag[];
 	groups: ModifierGroup[];
 }
 

@@ -1,5 +1,15 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+/*
+ * Dos familias:
+ * - Inter: el cuerpo, los precios y las opciones. Se lee bien en pantallas
+ *   pequeñas y tiene cifras tabulares.
+ * - Bricolage Grotesque: los títulos de la carta. Grotesca con carácter, para
+ *   que el nombre del restaurante y las secciones no se vean de plantilla.
+ * Se sirven desde el propio sitio: nada de Google Fonts en la carta.
+ */
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/bricolage-grotesque';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -43,7 +53,8 @@
 	--whatsapp: oklch(0.65 0.16 152);
 	--whatsapp-foreground: oklch(1 0 0);
 
-	--font-body: ui-sans-serif, system-ui, sans-serif;
+	--font-body: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+	--font-title: 'Bricolage Grotesque Variable', 'Inter Variable', ui-sans-serif, sans-serif;
 }
 
 /* El panel puede usar modo oscuro; la carta del restaurante vive en claro. */
@@ -78,6 +89,22 @@
 
 @theme inline {
 	--font-sans: var(--font-body);
+	--font-display: var(--font-title);
+
+	/* Rebote corto: la barra del carrito al agregar algo. */
+	--animate-bump: bump 320ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+	@keyframes bump {
+		0% {
+			transform: scale(1);
+		}
+		40% {
+			transform: scale(1.06);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
 
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
@@ -119,6 +146,11 @@
 
 	body {
 		@apply bg-background text-foreground antialiased;
+	}
+
+	/* El botón de borrar del navegador duplica el nuestro en el buscador. */
+	input[type='search']::-webkit-search-cancel-button {
+		appearance: none;
 	}
 
 	/* Precios y cantidades: cifras del mismo ancho para que no bailen al cambiar. */

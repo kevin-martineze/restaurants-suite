@@ -28,7 +28,7 @@
 
 <fieldset class="flex flex-col gap-2">
 	<legend class="mb-2 flex w-full items-baseline justify-between gap-2">
-		<span class="font-semibold">{group.name}</span>
+		<span class="font-display text-lg font-bold">{group.name}</span>
 		<span class={cn('text-xs', missing ? 'font-medium text-caution' : 'text-muted-foreground')}>
 			{groupRuleLabel(group)}
 			{#if group.max > 1}
@@ -42,7 +42,7 @@
 		{@const disabled = !modifier.available || (full && !checked)}
 		<label
 			class={cn(
-				'flex min-h-11 cursor-pointer items-center gap-3 rounded-md border border-border px-3 py-2 transition-colors',
+				'flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-border px-3.5 py-2 transition-colors hover:bg-secondary/60',
 				checked && 'border-primary bg-primary/5',
 				disabled && 'cursor-not-allowed opacity-50'
 			)}

@@ -5,6 +5,7 @@
 	import { Button } from '$lib/components/atoms/button';
 	import * as Drawer from '$lib/components/atoms/drawer';
 	import { Textarea } from '$lib/components/atoms/textarea';
+	import ItemTagBadge from '$lib/components/molecules/ItemTagBadge.svelte';
 	import ModifierGroupField from '$lib/components/molecules/ModifierGroupField.svelte';
 	import QuantityStepper from '$lib/components/molecules/QuantityStepper.svelte';
 	import { MAX_NOTE_LENGTH, MAX_QTY_PER_LINE, normalizeNote } from '$lib/domain/cart';
@@ -64,13 +65,22 @@
 					src={item.imageUrl}
 					alt=""
 					class={direction === 'bottom'
-						? 'mx-4 mt-2 aspect-video rounded-xl object-cover'
+						? 'mx-4 mt-2 aspect-video rounded-2xl object-cover'
 						: 'aspect-square w-full object-cover'}
 				/>
 			{/if}
 
-			<div class="flex flex-col gap-1 p-4 text-left">
-				<Drawer.Title class="text-2xl font-extrabold tracking-tight">{item.name}</Drawer.Title>
+			<div class="flex flex-col gap-1.5 p-4 text-left">
+				{#if item.tags.length > 0}
+					<div class="flex flex-wrap gap-1.5">
+						{#each item.tags as tag (tag)}
+							<ItemTagBadge {tag} />
+						{/each}
+					</div>
+				{/if}
+				<Drawer.Title class="font-display text-3xl leading-tight font-extrabold tracking-tight">
+					{item.name}
+				</Drawer.Title>
 				{#if item.description}
 					<Drawer.Description>{item.description}</Drawer.Description>
 				{/if}

@@ -40,6 +40,7 @@ const hamburguesa: Item = {
 	price: 18000,
 	imageUrl: null,
 	available: true,
+	tags: [],
 	groups: [termino, adiciones]
 };
 

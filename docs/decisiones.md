@@ -81,3 +81,27 @@ usa casilla para poder desmarcarla.
 La plantilla pisa `--primary` y `--primary-foreground` con un `style` en la
 carta y en las hojas (que se pintan fuera de su árbol). El color se valida
 (hex u `oklch`) antes de llegar al atributo, para no inyectar CSS.
+
+## 2026-10-04 — La carta es una galería de fotos
+
+La comida manda: fotos cuadradas en 2 columnas en el celular y 3 en pantallas
+grandes. En computador la carta usa todo el ancho, el carrito es una columna
+fija y las opciones salen desde el costado. Elegido por el equipo frente a
+"app de domicilios", "carta impresa" y "moderna llamativa".
+
+## 2026-10-04 — Lo que hace distinta a la carta
+
+Para no parecerse a lo que ya existe:
+
+- Portada inmersiva con el nombre sobre la foto y datos en cápsulas de vidrio.
+- Tipografía de títulos propia (Bricolage Grotesque) e Inter para el cuerpo,
+  servidas desde el sitio.
+- "Lo más pedido": carrusel con ranking, alimentado por la etiqueta `popular`.
+- Etiquetas que pone el restaurante: Más pedido, Nuevo, Picante, Vegetariano.
+- Cada producto muestra cuántas unidades llevas; la barra del carrito rebota y
+  el celular vibra al agregar.
+- Buscador dentro de la carta que ignora tildes. La búsqueda vive en la URL
+  (`?q=`), así se puede compartir.
+
+Peso de la carta: 81 KB de JS, 88 KB de tipografías, 10 KB de CSS. Las fotos
+de prueba se piden a 500 px; las reales las achicará la API (fase 4).

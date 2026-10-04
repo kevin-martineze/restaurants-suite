@@ -51,6 +51,9 @@ Documento: [carta-web.md](carta-web.md).
 - [x] [web] Restaurante cerrado: carta visible, pedido bloqueado, hora de apertura
 - [x] [web] Plantilla del restaurante: colores como variables CSS sobre los tokens
 - [x] [web] Revisión en 360 px y presupuesto de JS de la carta (77 KB de JS transferidos)
+- [x] [web] Rediseño en galería de fotos, con versión para computador (carrito lateral)
+- [x] [web] Diseño diferenciador: portada inmersiva, "Lo más pedido", etiquetas, cantidad en el carrito sobre cada producto, buscador en la carta
+- [x] [api] Etiquetas de producto (`popular`, `new`, `spicy`, `vegetarian`) y foto de portada de la marca
 - [ ] [negocio] Probar la carta con 3 a 5 personas en un Android de gama media
 
 ### API del menú

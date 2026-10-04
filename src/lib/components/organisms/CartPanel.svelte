@@ -57,7 +57,7 @@
 <div class={cn('flex min-h-0 flex-col', className)}>
 	{#if showTitle}
 		<div class="flex items-baseline justify-between px-4 pt-4">
-			<h2 class="text-xl font-extrabold tracking-tight">Tu pedido</h2>
+			<h2 class="font-display text-2xl font-extrabold tracking-tight">Tu pedido</h2>
 			{#if count > 0}
 				<span class="text-sm text-muted-foreground">
 					{count}

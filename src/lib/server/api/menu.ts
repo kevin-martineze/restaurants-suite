@@ -1,11 +1,12 @@
 import type { CartRequestLine, Quote } from '$lib/domain/cart';
-import type { Menu } from '$lib/domain/menu';
+import type { ItemTag, Menu } from '$lib/domain/menu';
 import type { ApiResult } from '$lib/server/api/client';
 import type { PublicContext } from '$lib/server/context';
 
 import { z } from 'zod';
 
 import { lineKey } from '$lib/domain/cart';
+import { ITEM_TAG_LABEL } from '$lib/domain/menu';
 import { publicRequest } from '$lib/server/api/request';
 
 /**
@@ -14,6 +15,10 @@ import { publicRequest } from '$lib/server/api/request';
  * Las respuestas se leen con zod y se traducen a `$lib/domain/*`: si un campo
  * cambia en la API, se ajusta aquí y ninguna página se entera.
  */
+
+function isItemTag(tag: string): tag is ItemTag {
+	return tag in ITEM_TAG_LABEL;
+}
 
 const modifierSchema = z.object({
 	id: z.string(),
@@ -37,6 +42,12 @@ const itemSchema = z.object({
 	price: z.number().int(),
 	imageUrl: z.string().nullable(),
 	available: z.boolean(),
+	// Una etiqueta que este frontend todavía no conoce se descarta en vez de
+	// romper la carta entera.
+	tags: z
+		.array(z.string())
+		.default([])
+		.transform((tags) => tags.filter(isItemTag)),
 	groups: z.array(groupSchema)
 });
 
