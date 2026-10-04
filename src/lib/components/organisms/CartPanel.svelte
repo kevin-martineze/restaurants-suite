@@ -1,11 +1,9 @@
 <script lang="ts">
-	import type { CartLine, Quote } from '$lib/domain/cart';
+	import type { CartLine } from '$lib/domain/cart';
 	import type { Item, OpenStatus } from '$lib/domain/menu';
 
-	import CircleCheck from '@lucide/svelte/icons/circle-check';
+	import ArrowRight from '@lucide/svelte/icons/arrow-right';
 	import ShoppingBag from '@lucide/svelte/icons/shopping-bag';
-
-	import { enhance } from '$app/forms';
 
 	import { Button } from '$lib/components/atoms/button';
 	import { Separator } from '$lib/components/atoms/separator';
@@ -19,11 +17,8 @@
 		/** Subtotal orientativo, calculado con la vista previa de cada línea. */
 		previewSubtotal: number;
 		status: OpenStatus;
-		/** Lo que se manda a la form action: solo identificadores y cantidades. */
-		cartPayload: string;
-		/** Cotización del servidor, solo si corresponde al carrito actual. */
-		quote: Quote | null;
-		quoteError: string | null;
+		/** A dónde lleva "Continuar": el checkout del restaurante. */
+		checkoutHref: string;
 		onQty: (key: string, qty: number) => void;
 		onRemove: (key: string) => void;
 		/** "¿Le sumas algo?": lo que combina con lo que ya lleva el pedido. */
@@ -42,9 +37,7 @@
 		lines,
 		previewSubtotal,
 		status,
-		cartPayload,
-		quote,
-		quoteError,
+		checkoutHref,
 		onQty,
 		onRemove,
 		suggestions = [],
@@ -54,11 +47,6 @@
 		class: className
 	}: Props = $props();
 
-	let submitting = $state(false);
-
-	const problems = $derived(new Map(quote?.rejected.map((line) => [line.key, line.reason]) ?? []));
-	const ready = $derived(quote !== null && quote.rejected.length === 0);
-	const subtotal = $derived(quote && ready ? quote.subtotal : previewSubtotal);
 	const count = $derived(lines.reduce((sum, line) => sum + line.qty, 0));
 </script>
 
@@ -87,7 +75,7 @@
 				{#if index > 0}
 					<Separator />
 				{/if}
-				<CartLineRow {line} problem={problems.get(line.key) ?? null} {onQty} {onRemove} />
+				<CartLineRow {line} {onQty} {onRemove} />
 			{/each}
 
 			{#if suggestions.length > 0}
@@ -107,43 +95,18 @@
 		<div class="flex flex-col gap-3 border-t border-border p-4">
 			<div class="flex items-center justify-between text-base">
 				<span class="font-medium">Subtotal</span>
-				<span class="tabular text-lg font-bold">{formatMoney(subtotal)}</span>
+				<span class="tabular text-lg font-bold">{formatMoney(previewSubtotal)}</span>
 			</div>
-
-			{#if quoteError}
-				<p class="text-sm font-medium text-destructive">{quoteError}</p>
-			{:else if quote && quote.rejected.length > 0}
-				<p class="text-sm font-medium text-destructive">
-					Hay productos que no podemos preparar. Ajústalos para continuar.
-				</p>
-			{:else if ready}
-				<p class="flex items-start gap-2 rounded-md bg-success/10 p-3 text-sm text-success">
-					<CircleCheck class="mt-0.5 size-4 shrink-0" />
-					Todo listo. Muy pronto podrás elegir la entrega y pagar aquí mismo.
-				</p>
-			{/if}
 
 			{#if !status.open}
 				<p class="text-sm font-medium text-caution">{status.label}</p>
-			{/if}
-
-			<form
-				method="POST"
-				action="?/quote"
-				use:enhance={() => {
-					submitting = true;
-
-					return async ({ update }) => {
-						await update({ reset: false, invalidateAll: false });
-						submitting = false;
-					};
-				}}
-			>
-				<input type="hidden" name="cart" value={cartPayload} />
-				<Button type="submit" class="h-12 w-full text-base" disabled={!status.open || submitting}>
-					{submitting ? 'Revisando…' : 'Continuar'}
+				<Button type="button" class="h-12 w-full text-base" disabled>Continuar</Button>
+			{:else}
+				<Button href={checkoutHref} class="h-12 w-full text-base">
+					Continuar
+					<ArrowRight class="size-4" />
 				</Button>
-			</form>
+			{/if}
 		</div>
 	{/if}
 </div>

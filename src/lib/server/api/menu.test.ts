@@ -1,7 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
-import { lineKey } from '$lib/domain/cart';
-import { getMenu, quoteCart } from '$lib/server/api/menu';
+import { getMenu } from '$lib/server/api/menu';
 
 const ctx = { slug: 'la-parrilla-de-tono', clientIp: '203.0.113.7' };
 
@@ -27,7 +26,8 @@ const menu = {
 		name: 'Sede El Prado',
 		address: 'El Prado, Barranquilla',
 		etaMinutes: 35,
-		fulfillment: ['delivery', 'pickup']
+		fulfillment: ['delivery', 'pickup'],
+		location: null
 	},
 	status: { open: true, label: 'Abierto · cierra a las 11:00 p. m.' },
 	kitchen: { load: 'busy', label: 'Mucha demanda' },
@@ -63,42 +63,5 @@ describe('getMenu', () => {
 		respond(200, { ...menu, status: 'abierto' });
 
 		expect(await getMenu(ctx)).toMatchObject({ ok: false, code: 'bad_response' });
-	});
-});
-
-describe('quoteCart', () => {
-	it('devuelve a cada línea la clave del carrito del navegador', async () => {
-		const lines = [
-			{ itemId: 'sencilla', modifierIds: ['medio'], note: 'sin cebolla', qty: 2 },
-			{ itemId: 'doble', modifierIds: ['medio'], note: '', qty: 1 }
-		];
-
-		respond(200, {
-			lines: [
-				{
-					index: 0,
-					itemId: 'sencilla',
-					modifierIds: ['medio'],
-					name: 'Sencilla',
-					modifiersLabel: 'Medio',
-					note: 'sin cebolla',
-					qty: 2,
-					unitPrice: 18000,
-					total: 36000
-				}
-			],
-			rejected: [{ index: 1, name: 'Doble', reason: '«Doble» se agotó.' }],
-			subtotal: 36000
-		});
-
-		const result = await quoteCart(ctx, lines);
-
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-
-		expect(result.data.lines[0]?.key).toBe(lineKey('sencilla', ['medio'], 'sin cebolla'));
-		expect(result.data.rejected).toEqual([
-			{ key: lineKey('doble', ['medio'], ''), name: 'Doble', reason: '«Doble» se agotó.' }
-		]);
 	});
 });

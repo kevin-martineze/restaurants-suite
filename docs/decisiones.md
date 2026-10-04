@@ -132,3 +132,41 @@ cerrado no se muestra el estado, solo el tiempo.
 Por qué: menos cancelaciones y menos "¿ya viene?" si el cliente sabe antes de
 pedir que la cocina está llena. Hoy el nivel lo fija el restaurante; en la
 fase 3 se calculará solo con la cola de pedidos (modo hora pico).
+
+## 2026-10-04 — Primero solo pago contra entrega
+
+El piloto arranca con efectivo y datáfono al recibir (o en la caja si se
+recoge). Wompi queda para cuando haya llaves. En efectivo el cliente dice con
+cuánto paga y el domiciliario lleva el cambio; la API rechaza un monto que no
+alcanza.
+
+## 2026-10-04 — Cobertura por anillos, no por polígonos
+
+Cada sede tiene anillos por distancia en línea recta (3 km: $3.000, mínimo
+$20.000…). Es mucho más fácil de configurar para un restaurante que dibujar
+polígonos, y alcanza para el piloto. Los polígonos por barrio pueden llegar
+después detrás de la misma función (`coverageFor`).
+
+## 2026-10-04 — Mapa con OpenStreetMap y Leaflet
+
+El cliente marca el punto exacto moviendo el mapa bajo un pin fijo o con
+"Usar mi ubicación". Ese punto calcula la cobertura y el costo, y es lo que
+usará el domiciliario para llegar. No se geocodifica texto (eso cuesta o
+tiene límites de uso); la dirección escrita, el barrio y las referencias van
+de apoyo. Leaflet se carga solo en el checkout. Los mapas públicos de OSM son
+para desarrollo y el piloto: la URL es configurable
+(`PUBLIC_MAP_TILES_URL`) para pasar a un proveedor en producción.
+
+## 2026-10-04 — El celular recuerda al cliente
+
+Nombre, celular, dirección y punto del mapa del último pedido se guardan en
+el `localStorage` del propio cliente, por restaurante. El segundo pedido se
+hace en segundos. No es una cuenta: no sale del dispositivo salvo al pedir.
+
+## 2026-10-04 — Autorización de datos en el checkout
+
+Dos casillas separadas: la obligatoria para gestionar el pedido (Ley 1581 de
+2012, el responsable es el restaurante) y la opcional de promociones por
+WhatsApp. La API guarda la fecha y la versión del texto aceptado
+(`2026-10-v1`). El texto legal definitivo lo revisa un abogado antes del
+piloto.

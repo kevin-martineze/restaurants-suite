@@ -1,5 +1,7 @@
 import type { CartLine } from '$lib/domain/cart';
 
+import { untrack } from 'svelte';
+
 import { browser } from '$app/environment';
 
 import { clampQty, lineKey } from '$lib/domain/cart';
@@ -88,7 +90,9 @@ class Cart {
 		if (!browser || !this.#slug) return;
 
 		try {
-			localStorage.setItem(storageKey(this.#slug), JSON.stringify(this.lines));
+			// Sin dependencia: guardar desde un efecto no debe hacer que ese
+			// efecto dependa de las líneas que acaba de escribir.
+			localStorage.setItem(storageKey(this.#slug), JSON.stringify(untrack(() => this.lines)));
 		} catch {
 			// Modo privado con storage lleno: el carrito sigue funcionando en memoria.
 		}

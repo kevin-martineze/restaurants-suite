@@ -72,16 +72,21 @@ Documento: [carta-web.md](carta-web.md).
 
 ## Fase 2 — Checkout
 
-- [ ] [web] Página de checkout: tipo de entrega (domicilio, recoger, mesa)
-- [ ] [web] Dirección: autocompletar + pin en el mapa + barrio + referencias
-- [ ] [web] Datos del cliente (nombre, teléfono) con consentimiento separado (servicio / marketing)
-- [ ] [api] Zonas de cobertura con polígonos `2dsphere`: costo, mínimo, tiempo estimado
-- [ ] [api] Horarios de la sucursal en `America/Bogota` y estado abierto/pausado
-- [ ] [api] `customers` por tenant con direcciones embebidas
-- [ ] [api] `POST /public/:slug/orders` en transacción: consecutivo, snapshots, evento inicial, idempotencia
+- [x] [web] Página de checkout: domicilio o recoger (la mesa llega con la carta QR en mesa)
+- [x] [web] Dirección: pin en el mapa (OpenStreetMap + Leaflet, "Usar mi ubicación") + dirección + barrio + referencias
+- [ ] [web] Autocompletar direcciones (requiere un geocodificador: Nominatim propio o de pago)
+- [x] [web] Datos del cliente (nombre, celular) con consentimiento separado (servicio / marketing)
+- [x] [web] El celular recuerda los datos del último pedido (solo en ese dispositivo)
+- [x] [api] Cobertura por anillos alrededor de la sede: distancia, costo del domicilio y pedido mínimo
+- [ ] [api] Zonas por polígonos (barrios) cuando un restaurante lo necesite
+- [x] [api] Horarios de la sucursal en `America/Bogota` y estado abierto/pausado
+- [x] [api] `customers` por tenant con direcciones embebidas y celular en E.164
+- [x] [api] `POST /public/:slug/orders` en transacción: consecutivo, carta congelada, evento inicial, idempotencia
+- [x] [api+web] Pago contra entrega: efectivo (con "¿con cuánto pagas?" y cambio) y datáfono
 - [ ] [api] Wompi: cuenta por restaurante (llaves cifradas), creación del pago, webhook con firma e idempotencia
-- [ ] [web] Pago: Wompi (Nequi, PSE, tarjeta, Bancolombia), efectivo y contraentrega
-- [ ] [web] Página de confirmación y seguimiento básico del pedido
+- [ ] [web] Pago en línea con Wompi (Nequi, PSE, tarjeta, Bancolombia)
+- [x] [web] Página de confirmación y seguimiento básico del pedido
+- [ ] [api] Mapas de producción: pasar a un proveedor (MapTiler, Stadia) antes del lanzamiento
 
 ## Fase 3 — Equipo: acceso, tablero y cocina
 

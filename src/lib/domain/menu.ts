@@ -66,6 +66,11 @@ export interface MenuTheme {
 	primaryForeground: string;
 }
 
+export interface GeoPoint {
+	lat: number;
+	lng: number;
+}
+
 export type FulfillmentType = 'delivery' | 'pickup' | 'dine_in';
 
 export interface OpenStatus {
@@ -99,6 +104,8 @@ export interface Menu {
 		/** Tiempo estimado de preparación + entrega, en minutos. */
 		etaMinutes: number;
 		fulfillment: FulfillmentType[];
+		/** Para centrar el mapa del checkout. `null`: la sede no hace domicilios. */
+		location: GeoPoint | null;
 	};
 	status: OpenStatus;
 	kitchen: KitchenStatus;

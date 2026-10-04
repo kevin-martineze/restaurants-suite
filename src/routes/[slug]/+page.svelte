@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { ActionData, PageData } from './$types';
+	import type { PageData } from './$types';
 	import type { Item } from '$lib/domain/menu';
 
 	import { untrack } from 'svelte';
@@ -25,10 +25,9 @@
 
 	interface Props {
 		data: PageData;
-		form: ActionData;
 	}
 
-	let { data, form }: Props = $props();
+	let { data }: Props = $props();
 
 	const menu = $derived(data.menu);
 	const style = $derived(themeStyle(menu.restaurant.theme));
@@ -64,13 +63,6 @@
 		sheetItem ? suggestionsForItem(menu.categories, sheetItem) : []
 	);
 	const orderSuggestions = $derived(cartSuggestions(menu.categories, cart.lines));
-
-	const cartPayload = $derived(cart.serialize());
-	// La cotización vale solo para el carrito que se cotizó. Si el cliente
-	// cambió algo después, se descarta y se vuelve a pedir al continuar.
-	const fresh = $derived(form?.quotedCart === cartPayload);
-	const quote = $derived(fresh ? (form?.quote ?? null) : null);
-	const quoteError = $derived(fresh ? (form?.quoteError ?? null) : null);
 
 	$effect(() => {
 		cart.hydrate(menu.restaurant.slug);
@@ -189,9 +181,7 @@
 						lines={cart.lines}
 						previewSubtotal={cart.previewSubtotal}
 						status={menu.status}
-						{cartPayload}
-						{quote}
-						{quoteError}
+						checkoutHref={`/${menu.restaurant.slug}/pedido`}
 						onQty={(key, qty) => cart.setQty(key, qty)}
 						onRemove={(key) => cart.remove(key)}
 						suggestions={orderSuggestions}
@@ -240,9 +230,7 @@
 				lines={cart.lines}
 				previewSubtotal={cart.previewSubtotal}
 				status={menu.status}
-				{cartPayload}
-				{quote}
-				{quoteError}
+				checkoutHref={`/${menu.restaurant.slug}/pedido`}
 				onQty={(key, qty) => cart.setQty(key, qty)}
 				onRemove={(key) => cart.remove(key)}
 				suggestions={orderSuggestions}

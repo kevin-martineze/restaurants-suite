@@ -17,3 +17,8 @@ export function publicRequest<T>(
 		clientIp: ctx.clientIp
 	});
 }
+
+/** Segmento de URL armado con algo que llegó de un formulario o de la ruta. */
+export function segment(value: string): string {
+	return encodeURIComponent(value);
+}
