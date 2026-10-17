@@ -57,6 +57,7 @@ export const groupFormSchema = z
 	.object({
 		groupId: id.optional(),
 		name: z.string().trim().min(1, 'Ponle nombre al grupo.').max(80),
+		internalName: z.string().trim().max(80, 'Máximo 80 caracteres.').default(''),
 		min: z.coerce.number().int().min(0).max(20),
 		max: z.coerce.number().int().min(1, 'El máximo es al menos 1.').max(20),
 		modifiers: z

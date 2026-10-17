@@ -40,6 +40,7 @@ const adminMenuSchema = z.object({
 		z.object({
 			id: z.string(),
 			name: z.string(),
+			internalName: z.string().nullable(),
 			min: z.number().int(),
 			max: z.number().int(),
 			modifiers: z.array(
@@ -67,6 +68,7 @@ export interface ItemInput {
 
 export interface GroupInput {
 	name: string;
+	internalName: string;
 	min: number;
 	max: number;
 	modifiers: { id?: string; name: string; priceDelta: number; available: boolean }[];

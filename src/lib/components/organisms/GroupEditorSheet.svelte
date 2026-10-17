@@ -33,6 +33,7 @@
 				? {
 						id: group.id,
 						name: group.name,
+						internalName: group.internalName ?? '',
 						min: group.min,
 						max: group.max,
 						modifiers: group.modifiers.map((modifier) => ({ ...modifier }))
@@ -40,6 +41,7 @@
 				: {
 						id: null,
 						name: '',
+						internalName: '',
 						min: 0,
 						max: 1,
 						modifiers: [{ id: null, name: '', priceDelta: 0, available: true }]
@@ -101,6 +103,23 @@
 						placeholder="Salsas"
 						class="h-11"
 					/>
+				</label>
+
+				<label class="flex flex-col gap-1.5">
+					<span class="text-sm font-semibold">
+						Nombre interno
+						<span class="font-normal text-muted-foreground">(solo lo ve tu equipo)</span>
+					</span>
+					<Input
+						name="internalName"
+						bind:value={draft.internalName}
+						maxlength={80}
+						placeholder="Adiciones · hamburguesas"
+						class="h-11"
+					/>
+					<p class="text-xs text-muted-foreground">
+						Para distinguir grupos con el mismo nombre, como dos "Adiciones".
+					</p>
 				</label>
 
 				<div class="grid grid-cols-2 gap-3">

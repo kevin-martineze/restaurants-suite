@@ -40,6 +40,27 @@ describe('groupFormSchema', () => {
 		expect(group.max).toBe(2);
 	});
 
+	it('el nombre interno es opcional y se recorta', () => {
+		const con = groupFormSchema.parse({
+			name: 'Adiciones',
+			internalName: '  Adiciones · hamburguesas  ',
+			min: '0',
+			max: '1',
+			modifiers: JSON.stringify([{ id: null, name: 'Tocineta', priceDelta: 0, available: true }])
+		});
+
+		expect(con.internalName).toBe('Adiciones · hamburguesas');
+
+		const sin = groupFormSchema.parse({
+			name: 'Adiciones',
+			min: '0',
+			max: '1',
+			modifiers: JSON.stringify([{ id: null, name: 'Tocineta', priceDelta: 0, available: true }])
+		});
+
+		expect(sin.internalName).toBe('');
+	});
+
 	it('el mínimo no pasa del máximo', () => {
 		const result = groupFormSchema.safeParse({
 			name: 'Término',

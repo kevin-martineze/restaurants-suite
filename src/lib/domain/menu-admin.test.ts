@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { groupSummary, moveId, productsLabel } from '$lib/domain/menu-admin';
+import { groupSummary, groupTitle, moveId, productsLabel } from '$lib/domain/menu-admin';
 
 describe('groupSummary', () => {
 	it('dice la regla del grupo', () => {
@@ -8,6 +8,15 @@ describe('groupSummary', () => {
 		expect(groupSummary({ min: 0, max: 3 })).toBe('Opcional · hasta 3');
 		expect(groupSummary({ min: 1, max: 2 })).toBe('Obligatorio · 1 a 2');
 		expect(groupSummary({ min: 0, max: 1 })).toBe('Opcional · 1');
+	});
+});
+
+describe('groupTitle', () => {
+	it('usa el nombre interno cuando existe', () => {
+		expect(groupTitle({ name: 'Adiciones', internalName: 'Adiciones · perros' })).toBe(
+			'Adiciones · perros'
+		);
+		expect(groupTitle({ name: 'Adiciones', internalName: null })).toBe('Adiciones');
 	});
 });
 

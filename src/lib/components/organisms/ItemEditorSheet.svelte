@@ -15,7 +15,7 @@
 	import { Input } from '$lib/components/atoms/input';
 	import { Textarea } from '$lib/components/atoms/textarea';
 	import { ITEM_TAG_LABEL } from '$lib/domain/menu';
-	import { groupSummary, ITEM_TAGS } from '$lib/domain/menu-admin';
+	import { groupSummary, groupTitle, ITEM_TAGS } from '$lib/domain/menu-admin';
 	import { cn } from '$lib/utils';
 	import { formatAmount } from '$lib/utils/money';
 
@@ -255,7 +255,10 @@
 								class="accent-primary"
 							/>
 							<span class="flex-1">
-								<span class="font-medium">{group.name}</span>
+								<span class="font-medium">{groupTitle(group)}</span>
+								{#if group.internalName}
+									<span class="block text-xs text-muted-foreground">{group.name}</span>
+								{/if}
 								<span class="block text-xs text-muted-foreground">
 									{groupSummary(group)} · {group.modifiers.map((m) => m.name).join(', ')}
 								</span>

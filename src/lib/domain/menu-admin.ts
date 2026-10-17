@@ -46,6 +46,7 @@ export interface AdminModifier {
 export interface AdminGroup {
 	id: string;
 	name: string;
+	internalName: string | null;
 	min: number;
 	max: number;
 	modifiers: AdminModifier[];
@@ -62,6 +63,7 @@ export interface AdminMenu {
 export interface GroupDraft {
 	id: string | null;
 	name: string;
+	internalName: string;
 	min: number;
 	max: number;
 	modifiers: { id: string | null; name: string; priceDelta: number; available: boolean }[];
@@ -73,6 +75,11 @@ export function groupSummary(group: Pick<AdminGroup, 'min' | 'max'>): string {
 	if (group.min === group.max) return `Obligatorio · ${group.min}`;
 
 	return `Obligatorio · ${group.min} a ${group.max}`;
+}
+
+/** Cómo se muestra el grupo en el panel: el nombre interno si existe. */
+export function groupTitle(group: Pick<AdminGroup, 'name' | 'internalName'>): string {
+	return group.internalName ?? group.name;
 }
 
 /** "1 producto", "3 productos". */

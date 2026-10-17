@@ -26,6 +26,7 @@
 		CATEGORY_ROLE_LABEL,
 		CATEGORY_ROLES,
 		groupSummary,
+		groupTitle,
 		productsLabel
 	} from '$lib/domain/menu-admin';
 	import { cn } from '$lib/utils';
@@ -362,7 +363,10 @@
 				<section class="flex flex-col gap-3 rounded-3xl bg-background p-4 shadow-sm">
 					<header class="flex items-start justify-between gap-2">
 						<div>
-							<h2 class="title text-lg">{group.name}</h2>
+							<h2 class="title text-lg">{groupTitle(group)}</h2>
+							{#if group.internalName}
+								<span class="block text-xs text-muted-foreground">{group.name}</span>
+							{/if}
 							<span class="text-xs text-muted-foreground">
 								{groupSummary(group)} · {group.usedBy === 0
 									? 'sin usar'
