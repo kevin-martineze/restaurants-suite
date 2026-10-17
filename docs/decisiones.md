@@ -182,7 +182,7 @@ alguien surte efecto de inmediato.
 ## 2026-10-04 — Tablero en vivo por SSE
 
 La API emite un aviso por pedido creado o movido; la carta lo reenvía desde
-`/panel/eventos` (el navegador nunca habla con la API) y el tablero se
+`/dashboard/events` (el navegador nunca habla con la API) y el tablero se
 recarga con `invalidate`. Un pedido nuevo suena (Web Audio, sin archivos) una
 vez que alguien toca "Activar sonido", que los navegadores exigen. Hay una
 recarga de respaldo cada minuto por si el stream se perdió. Los avisos viajan
@@ -236,3 +236,17 @@ En Vercel hay que definir `API_URL` (la API desplegada, nunca `localhost`) y
 `SESSION_SECRET`. El SSE del tablero corre en una función con tiempo máximo:
 se corta y vuelve a conectar, y la recarga de respaldo de cada minuto cubre el
 hueco.
+
+## 2026-10-17 — Infraestructura: Vercel + AWS
+
+El frontend se despliega en Vercel (`adapter-vercel`, Node 22, región iad1) y
+el backend con sus servicios en AWS (región us-east-1, junto a iad1). La API
+corre en EC2 como contenedor Docker; MongoDB en Atlas sobre us-east-1 (replica
+set, transacciones y change streams, como hoy); las fotos en S3 con el driver
+`s3` que ya existe. Quedan pendientes Redis (pub/sub, colas y cache) y TLS
+(Caddy en la misma EC2 o un ALB).
+
+Se elige EC2 y no una función sin servidor porque el SSE del tablero necesita
+una conexión abierta sin límite de duración. Atlas y no DocumentDB porque
+Atlas es Mongo real: DocumentDB no soporta change streams ni transacciones de
+la misma forma.

@@ -10,6 +10,7 @@
 	import ExternalLink from '@lucide/svelte/icons/external-link';
 	import LayoutGrid from '@lucide/svelte/icons/layout-grid';
 	import LogOut from '@lucide/svelte/icons/log-out';
+	import MapPin from '@lucide/svelte/icons/map-pin';
 	import Pause from '@lucide/svelte/icons/pause';
 	import Play from '@lucide/svelte/icons/play';
 
@@ -34,13 +35,16 @@
 
 	// Pausar y marcar la carga es de quien maneja el turno, no de la cocina.
 	const canManage = $derived(role === 'owner' || role === 'manager' || role === 'cashier');
+	// La configuración de la sede es solo del dueño y el gerente.
+	const canConfigure = $derived(role === 'owner' || role === 'manager');
 	const paused = $derived(branch.status === 'paused');
 	const loads: KitchenLoad[] = ['calm', 'busy', 'saturated'];
-	const views = [
+	const views = $derived([
 		{ href: '/dashboard', label: 'Tablero', icon: LayoutGrid },
 		{ href: '/kitchen', label: 'Cocina', icon: ChefHat },
-		{ href: '/dashboard/menu', label: 'Carta', icon: BookOpen }
-	];
+		{ href: '/dashboard/menu', label: 'Carta', icon: BookOpen },
+		...(canConfigure ? [{ href: '/dashboard/branch', label: 'Sede', icon: MapPin }] : [])
+	]);
 </script>
 
 <header class="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur-xl">

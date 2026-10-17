@@ -118,7 +118,7 @@ Documento: [carta-web.md](carta-web.md).
 - [x] [api] Subida de fotos (disco local o S3/R2), achicadas por la API a 800 px WebP
 - [x] [web] Subir, cambiar y quitar la foto de un producto
 - [ ] [api] Carga del menú desde una foto de la carta (IA) como borrador editable
-- [ ] [web] Sucursales, horarios, ubicación y anillos de cobertura
+- [x] [api+web] Sucursales, horarios, ubicación y anillos de cobertura
 - [ ] [web] Plantillas: colores, logo, portada
 - [ ] [web] Equipo: invitar y asignar roles
 - [ ] [web] QR de la carta y de cada mesa para imprimir
