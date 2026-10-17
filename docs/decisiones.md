@@ -225,3 +225,14 @@ cocina ven la misma pantalla pero solo agotan y devuelven productos u
 opciones. Editar un grupo conserva los ids de sus opciones para no romper
 carritos abiertos. Reordenar se hace con flechas (subir/bajar): arrastrar
 llega si hace falta.
+
+## 2026-10-17 — Despliegue en Vercel además de contenedores
+
+`svelte.config.js` elige el adaptador según dónde se compila: en Vercel
+(variable `VERCEL`) usa `@sveltejs/adapter-vercel` 6 con Node 22; en
+cualquier otro lado sigue `adapter-node` para contenedores detrás de Caddy.
+La versión 7 del adaptador de Vercel exige SvelteKit 3, por eso queda en la 6.
+En Vercel hay que definir `API_URL` (la API desplegada, nunca `localhost`) y
+`SESSION_SECRET`. El SSE del tablero corre en una función con tiempo máximo:
+se corta y vuelve a conectar, y la recarga de respaldo de cada minuto cubre el
+hueco.

@@ -50,6 +50,6 @@ export default ts.config(
 		}
 	},
 	{
-		ignores: ['.svelte-kit/', 'build/', 'node_modules/', 'static/']
+		ignores: ['.svelte-kit/', 'build/', '.vercel/', 'node_modules/', 'static/']
 	}
 );
