@@ -119,7 +119,7 @@ Documento: [carta-web.md](carta-web.md).
 - [x] [web] Subir, cambiar y quitar la foto de un producto
 - [ ] [api] Carga del menú desde una foto de la carta (IA) como borrador editable
 - [x] [api+web] Sucursales, horarios, ubicación y anillos de cobertura
-- [ ] [web] Plantillas: colores, logo, portada
+- [x] [api+web] Plantillas: colores, logo, portada
 - [ ] [web] Equipo: invitar y asignar roles
 - [ ] [web] QR de la carta y de cada mesa para imprimir
 

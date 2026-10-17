@@ -13,6 +13,7 @@
 	import MapPin from '@lucide/svelte/icons/map-pin';
 	import Pause from '@lucide/svelte/icons/pause';
 	import Play from '@lucide/svelte/icons/play';
+	import Store from '@lucide/svelte/icons/store';
 
 	import { enhance } from '$app/forms';
 	import { page } from '$app/state';
@@ -43,7 +44,12 @@
 		{ href: '/dashboard', label: 'Tablero', icon: LayoutGrid },
 		{ href: '/kitchen', label: 'Cocina', icon: ChefHat },
 		{ href: '/dashboard/menu', label: 'Carta', icon: BookOpen },
-		...(canConfigure ? [{ href: '/dashboard/branch', label: 'Sede', icon: MapPin }] : [])
+		...(canConfigure
+			? [
+					{ href: '/dashboard/brand', label: 'Marca', icon: Store },
+					{ href: '/dashboard/branch', label: 'Sede', icon: MapPin }
+				]
+			: [])
 	]);
 </script>
 

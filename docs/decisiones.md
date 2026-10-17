@@ -250,3 +250,20 @@ Se elige EC2 y no una función sin servidor porque el SSE del tablero necesita
 una conexión abierta sin límite de duración. Atlas y no DocumentDB porque
 Atlas es Mongo real: DocumentDB no soporta change streams ni transacciones de
 la misma forma.
+
+## 2026-10-17 — La marca desde el panel: color, logo, portada y lema
+
+`/dashboard/brand` (solo dueño y gerente) edita el nombre, el lema, el color
+primario, el logo y la portada. La carta pública lee la marca en vivo: guardar
+no obliga a republicar el menú.
+
+- El texto del color (`primaryForeground`, blanco o casi negro) lo calcula la
+  API por contraste WCAG contra el primario, en una función de dominio pura con
+  pruebas. El panel lo aproxima en la vista previa solo para no mostrar un
+  color con un texto que luego cambia; el valor que vale es el que la API
+  guarda.
+- El slug no se edita: es la URL de la carta y de los QR impresos.
+- El color acepta hex u `oklch` numérico; el logo se achica a 512 px y la
+  portada a 1600 px, reutilizando el pipeline de fotos.
+- Queda fuera de esta entrega, como tarea aparte en [tareas.md](tareas.md):
+  las tres plantillas de carta y la tipografía.
